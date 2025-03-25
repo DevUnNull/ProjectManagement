@@ -46,7 +46,7 @@
                 display: block;
                 transition: transform 0.3s ease-in-out;
             }
-            
+
 
             .logo:hover {
                 transform: scale(1.1);
@@ -87,13 +87,25 @@
                 box-shadow: 0 0 15px black, 0 0 30px black;
                 transform: scale(1.05);
             }
+
+            .logo-container {
+                position: absolute;
+                top: 15px;
+                left: 15px;
+                padding: 10px;
+                border-radius: 10px; /* Bo góc */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+            }
         </style>
     </head>
     <body>
 
-        <a class="fpt" href="http://localhost:9999/StudentManagement" target="_blank">
-            <img src="IMAGE/fptulogo-removebg-preview.png" alt="FPT Logo" class="logo"/>
-        </a>
+        <div class="logo-container">
+            <a href="http://localhost:9999/StudentManagement" target="_blank">
+                <img src="IMAGE/fptulogo-removebg-preview.png" alt="FPT Logo" class="logo"/>
+            </a>
+        </div>
+
 
         <div class="container">
             <h1>Welcome to FPT University</h1>

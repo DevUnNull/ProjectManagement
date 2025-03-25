@@ -120,7 +120,6 @@ body {
     position: absolute;
     top: 15px;
     left: 15px;
-    background: rgba(255, 255, 255, 0.8); /* Nền trắng trong suốt */
     padding: 10px;
     border-radius: 10px; /* Bo góc */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
