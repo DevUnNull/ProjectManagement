@@ -10,7 +10,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(name="AdminController", urlPatterns={"/admin"})
-public class AdminController extends HttpServlet {
 
+@WebServlet(name="LoginServlet", urlPatterns={"/login"})
+public class LoginServlet extends HttpServlet {
+ 
 }
