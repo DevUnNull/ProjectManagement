@@ -1,8 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html>
-<html>
-<head>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:import url="SidebarAdmin.jsp"/>
+<div class="content">
+
+
     <title>Admin - Account Management</title>
     <style>
         .btn {
@@ -38,5 +39,8 @@
             </tr>
         </c:forEach>
     </table>
+
+</div>
+
 </body>
 </html>

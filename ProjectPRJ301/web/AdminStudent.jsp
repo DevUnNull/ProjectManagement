@@ -1,9 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:import url="SidebarAdmin.jsp"/>
 <%@page import="java.util.List"%>
 <%@page import="models.Student"%>
-<!DOCTYPE html>
-<html>
-    <head>
+<div class="content">
+
+
+
         <title>Quản lý Sinh viên</title>
         <style>
             table {
@@ -32,8 +35,7 @@
                 background-color: #dc3545;
             }
         </style>
-    </head>
-    <body>
+   
         <h2 align="center">Quản lý Sinh viên</h2>
         <table>
             <tr>
@@ -73,5 +75,9 @@
                 }
             %>
         </table>
-    </body>
+
+
+</div>
+
+</body>
 </html>
