@@ -25,6 +25,7 @@
             <ul>
                 <li><a href="#"><i class="far fa-window-maximize"></i>Quản Lý Lớp Học</a></li>
                 <li><a href="#"><i class="fas fa-trophy"></i>Quản Lý Điểm</a></li>                
+                <li><a href="viewInfoTeacher.jsp"><i class="fas fa-trophy"></i>Thông tin cá nhân</a></li>                
             </ul>
 
             <div class="logout">

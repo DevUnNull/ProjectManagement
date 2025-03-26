@@ -1,9 +1,8 @@
-
-
 package controllers;
 
 import dal.AccountDAO;
 import dal.StudentDAO;
+import dal.TeacherDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,11 +13,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import models.Account;
 import models.Student;
+import models.Teacher;
 
-
-@WebServlet(name="LoginServlet", urlPatterns={"/login"})
+@WebServlet(name = "LoginServlet", urlPatterns = {"/login"})
 public class LoginServlet extends HttpServlet {
- @Override
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String email = req.getParameter("email");
         String pass = req.getParameter("password");
@@ -31,14 +31,21 @@ public class LoginServlet extends HttpServlet {
             if (acc.getRoleId() == 1) {
                 resp.sendRedirect("ViewAdmin.jsp");
             } else if (acc.getRoleId() == 2) {
-                resp.sendRedirect("ViewTeacher.jsp");
+                TeacherDAO teacherDAO = new TeacherDAO();
+                Teacher teacher = teacherDAO.getTeacher(acc.getAccId());
+                if (teacher != null) {
+                    session.setAttribute("teacher", teacher);
+                    resp.sendRedirect("ViewTeacher.jsp");
+                } else {
+                    resp.sendRedirect("ViewTeacher.jsp");
+                }
             } else if (acc.getRoleId() == 3) {
                 StudentDAO stuDAO = new StudentDAO();
                 Student stu = stuDAO.getStudent(acc.getAccId());
                 if (stu != null) {
                     session.setAttribute("student", stu);
                     resp.sendRedirect("ViewStudent.jsp");
-                }else{
+                } else {
                     resp.sendRedirect("Login.jsp");
                 }
             }
