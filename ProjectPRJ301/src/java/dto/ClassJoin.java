@@ -1,10 +1,7 @@
 
 package dto;
 
-/**
- *
- * @author PHAM THAI AN
- */
+
 public class ClassJoin {
     private int accId;
     private String claName;
