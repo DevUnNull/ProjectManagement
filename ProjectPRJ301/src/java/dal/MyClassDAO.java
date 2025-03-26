@@ -32,7 +32,7 @@ public class MyClassDAO extends DBContext {
             while (rs.next()) {
                 int id = rs.getInt("Class_ID"); // Giả sử Class_ID là số nguyên
                 String name = rs.getString("Class_Name");
-                int departmentId = rs.getInt("Department_ID");
+                String departmentId = rs.getString("Department_ID");
                 
                 // Tạo đối tượng MyClass và thêm vào danh sách
                 MyClass myClass = new MyClass(id, name, departmentId);
@@ -47,36 +47,51 @@ public class MyClassDAO extends DBContext {
         
         return classList;
     }
-    
- 
-    public void insertClass(MyClass myClass) {
-        String sql = "INSERT INTO class (Class_ID, Class_Name, Department_ID) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setInt(1, myClass.getClaId());
-            stmt.setString(2, myClass.getClaName());
-            stmt.setInt(3, myClass.getDepId());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-  public boolean isClassExisted(String className) {
-    String sql = "SELECT COUNT(*) FROM class WHERE Class_Name = ?";
+
+   public void insertClass(MyClass myClass) {
+    String sql = "INSERT INTO class (Class_Name, Department_ID) VALUES (?, ?)";
     try {
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setString(1, className);
-        ResultSet rs = stmt.executeQuery();
-        
-        if (rs.next() && rs.getInt(1) > 0) {
-            return true; // Tên lớp đã tồn tại
-        }
-    } catch (SQLException e) {
+        stmt.setString(1, myClass.getClaName());
+        stmt.setString(2, myClass.getDepId()); // Sửa thành setString
+        stmt.executeUpdate();
+        stmt.close();
+    } catch (Exception e) {
         e.printStackTrace();
     }
-    return false; // Không tìm thấy lớp học với tên này
 }
 
+    
+
+    public boolean isClassExisted(String className) {
+        String sql = "SELECT COUNT(*) FROM class WHERE Class_Name = ?";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setString(1, className);
+            ResultSet rs = stmt.executeQuery();
+            
+            if (rs.next() && rs.getInt(1) > 0) {
+                return true; // Tên lớp đã tồn tại
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false; // Không tìm thấy lớp học với tên này
+    }
+    public boolean isDepartmentExisted(String departmentID) {
+    String sql = "SELECT COUNT(*) FROM department WHERE Department_ID = ?";
+    try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setString(1, departmentID);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            return true;
+        }
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+    return false;
+}
 
 }
+

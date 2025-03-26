@@ -47,17 +47,14 @@
     <div class="form-container">
         <h2>Thêm Lớp Học Mới</h2>
         <form action="AddClass" method="post">
-            <div class="form-group">
-                <label for="classID">Mã lớp:</label>
-                <input type="text" name="classID" id="classID" required>
-            </div>
+            
             <div class="form-group">
                 <label for="className">Tên lớp:</label>
                 <input type="text" name="className" id="className" required>
             </div>
             <div class="form-group">
                 <label for="departmentID">Mã khoa:</label>
-                <input type="number" name="departmentID" id="departmentID" required>
+                <input type="text" name="departmentID" id="departmentID" required>
             </div>
             <div class="form-group">
                 <input type="submit" value="Thêm lớp">

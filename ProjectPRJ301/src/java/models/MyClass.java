@@ -11,14 +11,13 @@ package models;
 public class MyClass {
     private int claId;
     private String claName;
-    private int depId;
+    private String depId;
 
-    public MyClass(int claId, String claName, int depId) {
+    public MyClass(int claId, String claName, String depId) {
         this.claId = claId;
         this.claName = claName;
         this.depId = depId;
     }
-
 
     public int getClaId() {
         return claId;
@@ -36,12 +35,13 @@ public class MyClass {
         this.claName = claName;
     }
 
-    public int getDepId() {
+    public String getDepId() {
         return depId;
     }
 
-    public void setDepId(int depId) {
+    public void setDepId(String depId) {
         this.depId = depId;
     }
+
     
 }
