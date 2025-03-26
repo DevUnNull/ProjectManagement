@@ -1,5 +1,7 @@
 <%@page  import="models.Teacher" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
 <%
     Teacher te = (Teacher) session.getAttribute("teacher");
         if(te == null){

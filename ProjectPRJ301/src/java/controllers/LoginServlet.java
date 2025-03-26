@@ -3,6 +3,7 @@ package controllers;
 import dal.AccountDAO;
 import dal.StudentDAO;
 import dal.TeacherDAO;
+import dto.ClassJoin;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,6 +12,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
+import java.util.List;
 import models.Account;
 import models.Student;
 import models.Teacher;
@@ -37,18 +40,32 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("teacher", teacher);
                     resp.sendRedirect("ViewTeacher.jsp");
                 } else {
-                    resp.sendRedirect("ViewTeacher.jsp");
-                }
+                    resp.sendRedirect("Login.jsp");
+                    return ;
+                }               
             } else if (acc.getRoleId() == 3) {
+                // Xử lý lưu thông tin sinh viên
                 StudentDAO stuDAO = new StudentDAO();
                 Student stu = stuDAO.getStudent(acc.getAccId());
                 if (stu != null) {
                     session.setAttribute("student", stu);
-                    resp.sendRedirect("ViewStudent.jsp");
                 } else {
                     resp.sendRedirect("Login.jsp");
+                    return; // Dừng lại nếu không tìm thấy sinh viên
                 }
+
+                // Xử lý lưu danh sách lớp học
+                List<ClassJoin> cl = stuDAO.getClass(acc.getAccId());
+                if (cl != null) {
+                    session.setAttribute("class", cl);
+                } else {
+                    session.setAttribute("class", new ArrayList<>()); // Gán danh sách rỗng để tránh lỗi null
+                }
+
+                // Chỉ redirect sau khi đã lưu cả student và class
+                resp.sendRedirect("ViewStudent.jsp");
             }
+
         } else {
             req.setAttribute("Msg", "Tài khoản hoặc mật khẩu không chính xác!");
             req.getRequestDispatcher("Login.jsp").forward(req, resp);
