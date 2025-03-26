@@ -28,26 +28,20 @@ public class AddClass extends HttpServlet {
         String className = request.getParameter("className");
         String departmentStr = request.getParameter("departmentID");
 
-        int classID = 0;
-        int depID = 0;
         try {
-            classID = Integer.parseInt(classIDStr.trim());
-            depID = Integer.parseInt(departmentStr.trim());
+            int classID = Integer.parseInt(classIDStr.trim());
+            int depID = Integer.parseInt(departmentStr.trim());
+            MyClass myClass = new MyClass(classID, className, depID);
+            MyClassDAO dao = new MyClassDAO();
+            dao.insertClass(myClass);
+            response.sendRedirect("classManagement");
         } catch (NumberFormatException e) {
-            e.printStackTrace();
-            response.sendRedirect("AddClass.jsp?error=invalidNumber");
+            request.setAttribute("error", "Lớp học đã tồn tại!");
+            request.getRequestDispatcher("AddClass.jsp").forward(request, response);
             return;
         }
 
-        // Tạo đối tượng MyClass sử dụng constructor hỗ trợ
-        MyClass myClass = new MyClass(classID, className, depID);
-
-        // Gọi DAO để chèn dữ liệu vào database
-        MyClassDAO dao = new MyClassDAO();
-        dao.insertClass(myClass);
-
-        // Chuyển hướng về trang danh sách lớp
-        response.sendRedirect("ClassManagement");
     }
+    
 
 }

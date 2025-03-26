@@ -48,22 +48,41 @@ public class MyClassDAO extends DBContext {
         return classList;
     }
     
-    /**
-     * Phương thức thêm một lớp học mới vào database.
-     * @param myClass đối tượng MyClass chứa dữ liệu lớp học cần thêm.
-     */
+ 
     public void insertClass(MyClass myClass) {
-        String sql = "INSERT INTO class (Class_ID, Class_Name, Department_ID) VALUES (?, ?, ?)";
-        try {
-            PreparedStatement stmt = connection.prepareStatement(sql);
-            // Sử dụng đúng kiểu dữ liệu: Class_ID là int, Class_Name là String, Department_ID là int
-            stmt.setInt(1, myClass.getClaId());
-            stmt.setString(2, myClass.getClaName());
-            stmt.setInt(3, myClass.getDepId());
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    if (isClassExist(myClass.getClaId())) {
+        System.out.println("Class ID đã tồn tại!");
+        return;
     }
+
+    String sql = "INSERT INTO class (Class_ID, Class_Name, Department_ID) VALUES (?, ?, ?)";
+    try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, myClass.getClaId());
+        stmt.setString(2, myClass.getClaName());
+        stmt.setInt(3, myClass.getDepId());
+        stmt.executeUpdate();
+        stmt.close();
+    } catch (SQLIntegrityConstraintViolationException e) {
+        System.out.println("Lỗi: Class ID đã tồn tại trong database!");
+    } catch (Exception e) {
+        e.printStackTrace();
+    }
+}
+    public boolean isClassExist(int classId) {
+    String sql = "SELECT COUNT(*) FROM class WHERE Class_ID = ?";
+    try {
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, classId);
+        ResultSet rs = stmt.executeQuery();
+        if (rs.next() && rs.getInt(1) > 0) {
+            return true; // Class_ID đã tồn tại
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    return false; // Không tồn tại
+}
+
+
 }

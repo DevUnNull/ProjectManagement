@@ -19,9 +19,6 @@ public class MyClass {
         this.depId = depId;
     }
 
-    public MyClass(String classID, String className, int departmentID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public int getClaId() {
         return claId;
