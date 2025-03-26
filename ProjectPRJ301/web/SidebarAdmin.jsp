@@ -26,8 +26,8 @@
 
             <ul>
                 <li><a href="AccountController" onclick="loadContent('QuanLyTaiKhoan.jsp')"><i class="fas fa-users-cog"></i> Quản Lý Tài Khoản</a></li>
-                <li><a href="http://localhost:9999/ProjectPRJ301/classManagement"><i class="far fa-window-maximize"></i> Quản Lý Lớp Học</a></li>
-                <li><a href="#" onclick="loadContent('QuanLySinhVien.jsp')"><i class="far fa-window-maximize"></i> Quản Lý Sinh Viên</a></li>
+                <li><a href="http://localhost:9999/ProjectPRJ301/classManagement"><i class="fas fa-school"></i> Quản Lý Lớp Học</a></li>
+                <li><a href="#" onclick="loadContent('QuanLySinhVien.jsp')"><i class="fas fa-list-alt"></i> Quản Lý Sinh Viên</a></li>
                 <li><a href="#" onclick="loadContent('QuanLyGiaoVien.jsp')"><i class="far fa-window-maximize"></i> Quản Lý Giáo Viên</a></li>
                 <li><a href="#" onclick="loadContent('QuanLyDiem.jsp')"><i class="fas fa-trophy"></i> Quản Lý Điểm</a></li>
             </ul>
@@ -35,7 +35,7 @@
             <div class="logout">
                 <a href="Login.jsp"><i class="fas fa-sign-out-alt"></i> Đăng Xuất</a>
             </div>
-            
+
 
         </div>
 

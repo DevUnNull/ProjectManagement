@@ -30,101 +30,100 @@
 </div>
 
 <style>
-/* Định dạng container chứa nội dung */
+/* Định dạng khu vực nội dung chính */
 .content {
-    margin-left: 250px; /* Giữ khoảng cách với sidebar */
-    padding: 20px;
-    background-color: #f4f4f4;
-    min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center; /* Căn giữa theo chiều dọc */
+    height: 100vh; /* Chiều cao 100% màn hình */
 }
 
-/* Định dạng form thêm sinh viên */
+/* Định dạng container của form */
 .form-container {
-    background: #ffffff;
-    padding: 30px;
-    border-radius: 12px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
-    width: 100%;
-    max-width: 450px;
-    text-align: center;
+    width: 400px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
+/* Tiêu đề form */
 .form-container h2 {
+    text-align: center;
     color: #333;
-    font-size: 24px;
-    margin-bottom: 20px;
 }
 
+/* Định dạng nhóm nhập liệu */
 .form-group {
-    margin-bottom: 20px;
-    text-align: left;
+    margin-bottom: 15px;
 }
 
-label {
-    font-weight: bold;
+/* Label cho input */
+.form-group label {
     display: block;
+    font-weight: bold;
     margin-bottom: 5px;
 }
 
-input[type="text"] {
-    width: 95%;
-    padding: 12px;
+/* Ô nhập liệu */
+.form-group input[type="text"] {
+    width: 96%;
+    padding: 8px;
     border: 1px solid #ccc;
-    border-radius: 6px;
+    border-radius: 5px;
+}
+
+/* Nút submit */
+.form-group input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
     font-size: 16px;
 }
 
-input[type="submit"] {
-    width: 100%;
-    padding: 14px;
-    background-color: #007bff;
-    border: none;
-    color: white;
-    font-size: 18px;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background 0.3s;
-    margin-top: 10px;
+.form-group input[type="submit"]:hover {
+    background: #0056b3;
 }
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
+/* Định dạng thông báo */
 .alert {
-    padding: 12px;
-    border-radius: 6px;
+    padding: 10px;
     margin-top: 15px;
-    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
     text-align: center;
 }
 
+/* Màu sắc cho thông báo */
 .alert.success {
-    background-color: #d4edda;
+    background: #d4edda;
     color: #155724;
     border: 1px solid #c3e6cb;
 }
 
 .alert.error {
-    background-color: #f8d7da;
+    background: #f8d7da;
     color: #721c24;
     border: 1px solid #f5c6cb;
 }
 
-a {
+/* Link quay lại */
+.form-container a {
     display: block;
     text-align: center;
-    margin-top: 20px;
-    text-decoration: none;
+    margin-top: 10px;
     color: #007bff;
-    font-size: 16px;
+    text-decoration: none;
 }
 
-a:hover {
+.form-container a:hover {
     text-decoration: underline;
 }
+
+
 </style>
