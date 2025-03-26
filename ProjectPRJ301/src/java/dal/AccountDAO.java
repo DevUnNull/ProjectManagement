@@ -40,6 +40,6 @@ public class AccountDAO extends DBContext{
         return account;
     }
     public static void main(String[] args) {
-        System.out.println(new AccountDAO().login("an@gmail.com", "123"));
+        System.out.println(new AccountDAO().login("hoang@gmail.com", "123"));
     }
 }

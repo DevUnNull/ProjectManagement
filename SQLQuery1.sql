@@ -25,16 +25,16 @@ GO
 
 -- Bảng Department (Khoa)
 CREATE TABLE Department (
-    Department_ID INT PRIMARY KEY,
+    Department_ID NVARCHAR(50) PRIMARY KEY,
     Department_Name NVARCHAR(100) NOT NULL
 );
 GO
 
 -- Bảng Class (Lớp học)
 CREATE TABLE Class (
-    Class_ID INT PRIMARY KEY,
+    Class_ID INT IDENTITY(1,1) PRIMARY KEY,
     Class_Name NVARCHAR(50) NOT NULL,
-    Department_ID INT,
+    Department_ID NVARCHAR(50),
     CONSTRAINT FK_Class_Department FOREIGN KEY (Department_ID) REFERENCES Department(Department_ID) ON DELETE CASCADE
 );
 GO
@@ -158,17 +158,17 @@ INSERT INTO Department (Department_ID, Department_Name) VALUES
 (9, N'Địa chất'),
 (10, N'Khoa học máy tính');
 
-INSERT INTO Class (Class_ID, Class_Name, Department_ID) VALUES
-(1, N'Lớp CNTT 1', 1),
-(2, N'Lớp CNTT 2', 1),
-(3, N'Lớp Kinh tế 1', 2),
-(4, N'Lớp Kinh tế 2', 2),
-(5, N'Lớp Luật 1', 3),
-(6, N'Lớp Luật 2', 3),
-(7, N'Lớp Y dược 1', 4),
-(8, N'Lớp Y dược 2', 4),
-(9, N'Lớp Xây dựng 1', 6),
-(10, N'Lớp Khoa học máy tính 1', 10);
+INSERT INTO Class ( Class_Name, Department_ID) VALUES
+( N'Lớp CNTT 1', 1),
+( N'Lớp CNTT 2', 1),
+( N'Lớp Kinh tế 1', 2),
+( N'Lớp Kinh tế 2', 2),
+( N'Lớp Luật 1', 3),
+( N'Lớp Luật 2', 3),
+( N'Lớp Y dược 1', 4),
+(N'Lớp Y dược 2', 4),
+(N'Lớp Xây dựng 1', 6),
+(N'Lớp Khoa học máy tính 1', 10);
 
 INSERT INTO Student (Student_ID, Full_Name, BirthYear, Gender, Phone, Email, Address, Class_ID, Account_ID) VALUES
 ('S001', N'Phạm Thái An', 2002, N'Nam', '0987654321', 'an@gmail.com',N'Hà Nội', 1, 101),
