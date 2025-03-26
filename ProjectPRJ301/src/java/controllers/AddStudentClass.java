@@ -1,4 +1,3 @@
-
 import dal.ClassStudentDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,7 +15,6 @@ public class AddStudentClass extends HttpServlet {
             throws ServletException, IOException {
         try {
             String stuId = request.getParameter("stuId");
-            String stuName = request.getParameter("stuName");
             String classIdParam = request.getParameter("classID");
 
             if (classIdParam == null || classIdParam.isEmpty()) {
@@ -27,8 +25,8 @@ public class AddStudentClass extends HttpServlet {
             }
             int claId = Integer.parseInt(classIdParam);
 
-            if (stuId == null || stuName == null || stuId.isEmpty() || stuName.isEmpty()) {
-                request.setAttribute("msg", "Vui lòng nhập mã sinh viên và họ tên!");
+            if (stuId == null || stuId.isEmpty()) {
+                request.setAttribute("msg", "Vui lòng nhập mã sinh viên!");
                 request.setAttribute("status", "warning");
                 request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
                 return;
@@ -43,25 +41,34 @@ public class AddStudentClass extends HttpServlet {
 
             if (existingStudent != null) {
                 if (existingStudent.getClaId() != claId) {
-                    dao.updateStudentClass(stuId, claId);
-                    request.setAttribute("msg", "Sinh viên đã tồn tại, cập nhật lớp học!");
-                    request.setAttribute("status", "warning");
+                    // Nếu sinh viên tồn tại nhưng thuộc lớp khác, tiến hành cập nhật lớp
+                    boolean updated = dao.updateStudentClass(stuId, claId);
+                    if (updated) {
+                        request.setAttribute("msg", "Cập nhật lớp học cho sinh viên thành công!");
+                        request.setAttribute("status", "success");
+                    } else {
+                        request.setAttribute("msg", "Cập nhật lớp học cho sinh viên thất bại!");
+                        request.setAttribute("status", "error");
+                    }
                 } else {
+                    // Nếu sinh viên đã có trong lớp này
                     request.setAttribute("msg", "Sinh viên đã tồn tại trong lớp này!");
-                    request.setAttribute("status", "error");
+                    request.setAttribute("status", "warning");
                 }
                 request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
                 return;
             }
 
-            Student newStudent = new Student(stuId, stuName, 2000, "Nam", "", "", "", claId, accId);
+            // Sinh viên chưa tồn tại, tiến hành thêm mới
+            // Ở đây, ta để tên sinh viên là một chuỗi mặc định (có thể là rỗng hoặc "Chưa cập nhật")
+            Student newStudent = new Student(stuId, "", 2000, "Nam", "", "", "", claId, accId);
             boolean success = dao.addStudent(newStudent);
 
             if (success) {
                 request.setAttribute("msg", "Thêm sinh viên thành công!");
                 request.setAttribute("status", "success");
             } else {
-                request.setAttribute("msg", "Lỗi: Mã sinh viên đã tồn tại!");
+                request.setAttribute("msg", "Mã Sinh Viên không tồn tại!");
                 request.setAttribute("status", "error");
             }
             request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
