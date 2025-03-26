@@ -56,19 +56,28 @@
             <h2>Danh sách Lớp học</h2>
             <table>
                 <tr>
+                    <th>Mã Lớp</th>
                     <th>Tên lớp</th>
+                    <th>Mã Môn</th>
                 </tr>
                 <c:forEach var="cls" items="${classList}">
                     <tr>
-                        <td>${cls.claName}</td>
+                        <td>${cls.claId}</td>
+                        <td>
+                            <a href="ClassDetail?classID=${cls.claId}">
+                                ${cls.claName}
+                            </a>
+                        </td>
+                        <td>${cls.depId}</td>
                     </tr>
                 </c:forEach>
                 <c:if test="${empty classList}">
                     <tr>
-                        <td colspan="1">Không có dữ liệu lớp học nào.</td>
+                        <td colspan="3">Không có dữ liệu lớp học nào.</td>
                     </tr>
                 </c:if>
             </table>
+
             <button type="button" onclick="window.location.href = 'AddClass'" 
                     style="padding: 10px 20px; background-color: #4285f4; color: #fff; border: none; cursor: pointer;">
                 Thêm Lớp
