@@ -5,16 +5,86 @@
  
 
     <title>Admin - Teacher Management</title>
-    <style>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .content {
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #fff;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #e9ecef;
+        }
+
         .btn {
-            padding: 5px 10px;
+            display: inline-block;
+            padding: 8px 14px;
             text-decoration: none;
             border-radius: 5px;
-            margin: 2px;
+            font-weight: bold;
+            transition: 0.3s;
+            margin: 5px;
+            border: none;
         }
-        .edit { background-color: yellow; }
-        .delete { background-color: red; color: white; }
+
+        .edit {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        .delete {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .btn:hover {
+            filter: brightness(90%);
+        }
     </style>
+
 
     <h1>Teacher List</h1>
     <table border="1">
