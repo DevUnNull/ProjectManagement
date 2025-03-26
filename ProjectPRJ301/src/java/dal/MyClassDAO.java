@@ -30,15 +30,14 @@ public class MyClassDAO extends DBContext {
             
             // Duyệt qua từng dòng dữ liệu trả về
             while (rs.next()) {
-                String id = rs.getString("Class_ID");
+                int id = rs.getInt("Class_ID"); // Giả sử Class_ID là số nguyên
                 String name = rs.getString("Class_Name");
                 int departmentId = rs.getInt("Department_ID");
                 
                 // Tạo đối tượng MyClass và thêm vào danh sách
-                MyClass myClass = new MyClass(departmentId, name, departmentId);
+                MyClass myClass = new MyClass(id, name, departmentId);
                 classList.add(myClass);
             }
-            
             
             rs.close();
             stmt.close();
@@ -48,11 +47,17 @@ public class MyClassDAO extends DBContext {
         
         return classList;
     }
+    
+    /**
+     * Phương thức thêm một lớp học mới vào database.
+     * @param myClass đối tượng MyClass chứa dữ liệu lớp học cần thêm.
+     */
     public void insertClass(MyClass myClass) {
         String sql = "INSERT INTO class (Class_ID, Class_Name, Department_ID) VALUES (?, ?, ?)";
         try {
             PreparedStatement stmt = connection.prepareStatement(sql);
-            stmt.setString(1, myClass.(getClaId());
+            // Sử dụng đúng kiểu dữ liệu: Class_ID là int, Class_Name là String, Department_ID là int
+            stmt.setInt(1, myClass.getClaId());
             stmt.setString(2, myClass.getClaName());
             stmt.setInt(3, myClass.getDepId());
             stmt.executeUpdate();

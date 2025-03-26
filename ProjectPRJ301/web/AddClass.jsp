@@ -56,7 +56,7 @@
                 <input type="submit" value="Thêm lớp">
             </div>
         </form>
-        <a href="ClassManagement">Quay lại danh sách lớp</a>
+        <a href="classManagement">Quay lại danh sách lớp</a>
     </div>
 
 
