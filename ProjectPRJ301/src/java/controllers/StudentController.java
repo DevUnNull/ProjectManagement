@@ -24,5 +24,6 @@ public class StudentController extends HttpServlet {
             req.setAttribute("student", stu);
             req.getRequestDispatcher("viewInfoStudent.jsp").forward(req, resp);
         }
+        //Hiển thị thông tin lớp học
     }
 }
