@@ -130,21 +130,21 @@ INSERT INTO Role (Role_ID, Role_Name) VALUES
 
 INSERT INTO Account (Account_ID, Username, Email, Password, Role_ID) VALUES
 (100, 'admin', 'admin@gmail.com', '123', 1),
-(101, 'Thái An', 'an@gmail.com', '123', 3),
-(102, 'Ngọc Hải', 'hai@gmail.com', '123', 3),
-(103, 'Thu Huyền', 'huyen@gmail..com', '123', 3),
-(104, 'Đình Tuân', 'tuan@gmail.com', '123', 3),
-(105, 'Văn Đức', 'duc@gmail.com', '123', 3),
-(106, 'Hải Hiệp', 'hiep@gmail.com', '123', 3),
-(107, 'Phí Hi', 'hi@gmail.com', '123', 3),
-(108, 'Linh Nhi', 'nhi@gmail.com', '123', 3),
-(109, 'Phương Hằng', 'hang@gmail.com', '123', 3),
-(110, 'Ngọc Trúc', 'ngoc@gmail.com', '123', 3),
-(111, 'Ngọc Thọ', 'thopn3@gmail.com', '123', 2),
-(112, 'Thiên Hoàng', 'hoang@gmail.com', '123', 2),
-(113, 'Hải Hưng', 'hung@gmail.com', '123', 2),
-(114, 'Ngọc Lan', 'lan@gmail.com', '123', 2),
-(115, 'Hải Yến', 'yen@gmail.com', '123', 2);
+(101,N'Thái An', 'an@gmail.com', '123', 3),
+(102, N'Ngọc Hải', 'hai@gmail.com', '123', 3),
+(103, N'Thu Huyền', 'huyen@gmail..com', '123', 3),
+(104, N'Đình Tuân', 'tuan@gmail.com', '123', 3),
+(105, N'Văn Đức', 'duc@gmail.com', '123', 3),
+(106, N'Hải Hiệp', 'hiep@gmail.com', '123', 3),
+(107, N'Phí Hi', 'hi@gmail.com', '123', 3),
+(108, N'Linh Nhi', 'nhi@gmail.com', '123', 3),
+(109, N'Phương Hằng', 'hang@gmail.com', '123', 3),
+(110, N'Ngọc Trúc', 'ngoc@gmail.com', '123', 3),
+(111, N'Ngọc Thọ', 'thopn3@gmail.com', '123', 2),
+(112, N'Thiên Hoàng', 'hoang@gmail.com', '123', 2),
+(113, N'Hải Hưng', 'hung@gmail.com', '123', 2),
+(114, N'Ngọc Lan', 'lan@gmail.com', '123', 2),
+(115, N'Hải Yến', 'yen@gmail.com', '123', 2);
 
 INSERT INTO Department (Department_ID, Department_Name) VALUES
 (1, N'Công nghệ thông tin'),
