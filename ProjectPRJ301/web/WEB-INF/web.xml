@@ -24,6 +24,14 @@
         <servlet-name>Admin_StudentController</servlet-name>
         <servlet-class>controllers.Admin_StudentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Admin_TeacherController</servlet-name>
+        <servlet-class>controllers.Admin_TeacherController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditTeacherController</servlet-name>
+        <servlet-class>controllers.EditTeacherController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/adminController</url-pattern>
@@ -47,5 +55,13 @@
     <servlet-mapping>
         <servlet-name>Admin_StudentController</servlet-name>
         <url-pattern>/Admin_StudentController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Admin_TeacherController</servlet-name>
+        <url-pattern>/Admin_TeacherController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditTeacherController</servlet-name>
+        <url-pattern>/EditTeacherController</url-pattern>
     </servlet-mapping>
 </web-app>
