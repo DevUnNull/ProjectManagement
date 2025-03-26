@@ -103,5 +103,10 @@ public class Student {
         this.accId = accId;
     }
 
+    @Override
+    public String toString() {
+        return "Student{" + "stuId=" + stuId + ", stuName=" + stuName + ", birthyear=" + birthyear + ", gender=" + gender + ", phone=" + phone + ", email=" + email + ", address=" + address + ", claId=" + claId + ", accId=" + accId + '}';
+    }
+
     
 }

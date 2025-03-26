@@ -20,6 +20,10 @@
         <servlet-name>ClassDetail</servlet-name>
         <servlet-class>controllers.ClassDetail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Admin_StudentController</servlet-name>
+        <servlet-class>controllers.Admin_StudentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/adminController</url-pattern>
@@ -40,5 +44,8 @@
         <servlet-name>ClassDetail</servlet-name>
         <url-pattern>/classDetail</url-pattern>
     </servlet-mapping>
-    
+    <servlet-mapping>
+        <servlet-name>Admin_StudentController</servlet-name>
+        <url-pattern>/Admin_StudentController</url-pattern>
+    </servlet-mapping>
 </web-app>
