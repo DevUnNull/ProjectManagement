@@ -11,7 +11,7 @@ import models.Student;
 
 @WebServlet(name = "AddStudentClass", urlPatterns = {"/AddStudentClass"})
 public class AddStudentClass extends HttpServlet {
-    
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
@@ -23,37 +23,38 @@ public class AddStudentClass extends HttpServlet {
             String email = request.getParameter("email");
             String address = request.getParameter("address");
             String claIdStr = request.getParameter("claId");
-            
-            // Kiểm tra dữ liệu null hoặc rỗng
-            if (stuId == null || stuName == null || birthyearStr == null || 
-                gender == null || phone == null || email == null || address == null || claIdStr == null ||
-                stuId.isEmpty() || stuName.isEmpty() || birthyearStr.isEmpty() || 
-                gender.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty() || claIdStr.isEmpty()) {
-                response.sendRedirect("add_student.jsp?msg=Thiếu thông tin sinh viên");
+
+            if (stuId == null || stuName == null || birthyearStr == null
+                    || gender == null || phone == null || email == null || address == null || claIdStr == null
+                    || stuId.isEmpty() || stuName.isEmpty() || birthyearStr.isEmpty()
+                    || gender.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty() || claIdStr.isEmpty()) {
+                response.sendRedirect("AddStudent.jsp?msg=Vui lòng điền đầy đủ thông tin!");
                 return;
             }
 
-            // Chuyển đổi dữ liệu số
-            int birthyear = Integer.parseInt(birthyearStr);
-            int claId = Integer.parseInt(claIdStr);
-            
-            // Xử lý Account_ID (nếu có trong request hoặc lấy từ session)
-            int accId = 0; // Giá trị mặc định hoặc có thể lấy từ database/session
-            
-            // Tạo đối tượng Student
-            Student newStudent = new Student(stuId, stuName, birthyear, gender, phone, email, address, claId, accId);
-            
-            // Thêm vào database
-            ClassStudentDAO dao = new ClassStudentDAO();
-            dao.addStudent(newStudent);
+            try {
+                int birthyear = Integer.parseInt(birthyearStr);
+                int claId = Integer.parseInt(claIdStr);
 
-            // Chuyển hướng về trang chi tiết lớp
-            response.sendRedirect("ClassDetail?classID=" + claId);
-        } catch (NumberFormatException e) {
-            response.sendRedirect("AddStudent.jsp?msg=Lỗi nhập dữ liệu số");
+                if (birthyear < 1900 || birthyear > 2025) {
+                    response.sendRedirect("AddStudent.jsp?msg=Năm sinh không hợp lệ!");
+                    return;
+                }
+
+                int accId = 0; // Giá trị mặc định hoặc lấy từ session/database
+
+                Student newStudent = new Student(stuId, stuName, birthyear, gender, phone, email, address, claId, accId);
+                ClassStudentDAO dao = new ClassStudentDAO();
+                dao.addStudent(newStudent);
+
+                response.sendRedirect("ClassDetail?classID=" + claId);
+            } catch (NumberFormatException e) {
+                response.sendRedirect("AddStudent.jsp?msg=Năm sinh phải là số nguyên hợp lệ!");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("AddStudent.jsp?msg=Lỗi hệ thống");
+            response.sendRedirect("AddStudent.jsp?msg=Lỗi hệ thống, vui lòng thử lại!");
         }
     }
+
 }
