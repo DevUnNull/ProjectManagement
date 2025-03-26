@@ -1,8 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:import url="SidebarAdmin.jsp"/>
+<div class="content">
+
+
+
         <title>Thêm Sinh Viên</title>
         <style>
             .container {
@@ -85,5 +87,9 @@
 
             <a href="ClassDetail?classID=${param.classID}" class="back-button">Quay lại</a>
         </div>
-    </body>
+
+
+</div>
+
+</body>
 </html>

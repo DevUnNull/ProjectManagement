@@ -50,10 +50,10 @@ public class AddStudentClass extends HttpServlet {
             // Chuyển hướng về trang chi tiết lớp
             response.sendRedirect("ClassDetail?classID=" + claId);
         } catch (NumberFormatException e) {
-            response.sendRedirect("add_student.jsp?msg=Lỗi nhập dữ liệu số");
+            response.sendRedirect("AddStudent.jsp?msg=Lỗi nhập dữ liệu số");
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("add_student.jsp?msg=Lỗi hệ thống");
+            response.sendRedirect("AddStudent.jsp?msg=Lỗi hệ thống");
         }
     }
 }
