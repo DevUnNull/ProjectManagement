@@ -62,20 +62,21 @@ public class MyClassDAO extends DBContext {
             e.printStackTrace();
         }
     }
-    public boolean isClassExisted(int classID) {
-    String sql = "SELECT COUNT(*) FROM class WHERE Class_ID = ?";
+  public boolean isClassExisted(String className) {
+    String sql = "SELECT COUNT(*) FROM class WHERE Class_Name = ?";
     try {
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, classID);
+        stmt.setString(1, className);
         ResultSet rs = stmt.executeQuery();
         
         if (rs.next() && rs.getInt(1) > 0) {
-            return true; // Lớp học đã tồn tại
+            return true; // Tên lớp đã tồn tại
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return false; // Không tìm thấy lớp học
+    return false; // Không tìm thấy lớp học với tên này
 }
+
 
 }
