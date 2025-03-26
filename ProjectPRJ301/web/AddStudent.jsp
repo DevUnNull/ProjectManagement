@@ -1,101 +1,47 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="SidebarAdmin.jsp"/>
+
 <div class="content">
-
-
-
-    <title>Thêm Sinh Viên</title>
-    <style>
-        .container {
-            width: 50%;
-            margin: 50px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            background-color: #f9f9f9;
-            text-align: center;
-        }
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        input, select {
-            width: 80%;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-        button {
-            padding: 10px 20px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        button:hover {
-            background-color: #218838;
-        }
-        .back-button {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 20px;
-            background-color: #dc3545;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-        .back-button:hover {
-            background-color: #c82333;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Thêm Sinh Viên</h2>
+    <div class="form-container">
+        <h2>Thêm Sinh Viên Mới</h2>
         <form action="AddStudentClass" method="post">
-            <input type="hidden" name="claId" value="${param.classID}"> 
+            <div class="form-group">
+                <label for="stuId">Mã sinh viên:</label>
+                <input type="text" name="stuId" id="stuId" required>
+            </div>
+            <div class="form-group">
+                <label for="stuName">Họ và tên:</label>
+                <input type="text" name="stuName" id="stuName" required>
+            </div>
 
-            <label>Mã Sinh Viên:</label>
-            <input type="text" name="stuId" required>
+            <input type="hidden" name="classID" value="${param.classID}">
 
-            <label>Họ và Tên:</label>
-            <input type="text" name="stuName" required>
-
-            <label>Năm Sinh:</label>
-            <input type="number" name="birthyear" required>
-
-            <label>Giới Tính:</label>
-            <select name="gender">
-                <option value="Nam">Nam</option>
-                <option value="Nữ">Nữ</option>
-            </select>
-
-            <label>Số Điện Thoại:</label>
-            <input type="text" name="phone" required>
-
-            <label>Email:</label>
-            <input type="email" name="email" required>
-
-            <label>Địa Chỉ:</label>
-            <input type="text" name="address" required>
-
-            <button type="submit">Thêm Sinh Viên</button>
-            <c:if test="${not empty param.msg}">
-                <div style="color: red; font-weight: bold; margin-bottom: 10px;">
-                    ${param.msg}
-                </div>
-            </c:if>
-
+            <div class="form-group">
+                <input type="submit" value="Thêm sinh viên">
+            </div>
         </form>
 
-        <a href="ClassDetail?classID=${param.classID}" class="back-button">Quay lại</a>
+        <!-- Hiển thị thông báo -->
+        <c:if test="${not empty requestScope.msg}">
+            <div class="alert ${requestScope.status}">
+                <strong>Thông báo:</strong> <c:out value="${requestScope.msg}"/>
+            </div>
+        </c:if>
+
+        <a href="ClassDetail?classID=${param.classID}">Quay lại danh sách sinh viên</a>
     </div>
-
-
 </div>
 
-</body>
-</html>
+<!-- CSS cập nhật cho các trạng thái thông báo -->
+<style>
+    .alert.success {
+        color: green;
+    }
+    .alert.error {
+        color: red;
+    }
+    .alert.warning {
+        color: orange;
+    }
+</style>

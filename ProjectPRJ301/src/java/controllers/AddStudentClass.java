@@ -1,12 +1,12 @@
-package controllers;
 
 import dal.ClassStudentDAO;
-import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.io.IOException;
 import models.Student;
 
 @WebServlet(name = "AddStudentClass", urlPatterns = {"/AddStudentClass"})
@@ -17,44 +17,64 @@ public class AddStudentClass extends HttpServlet {
         try {
             String stuId = request.getParameter("stuId");
             String stuName = request.getParameter("stuName");
-            String birthyearStr = request.getParameter("birthyear");
-            String gender = request.getParameter("gender");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
-            String claIdStr = request.getParameter("claId");
+            String classIdParam = request.getParameter("classID");
 
-            if (stuId == null || stuName == null || birthyearStr == null
-                    || gender == null || phone == null || email == null || address == null || claIdStr == null
-                    || stuId.isEmpty() || stuName.isEmpty() || birthyearStr.isEmpty()
-                    || gender.isEmpty() || phone.isEmpty() || email.isEmpty() || address.isEmpty() || claIdStr.isEmpty()) {
-                response.sendRedirect("AddStudent.jsp?msg=Vui lòng điền đầy đủ thông tin!");
+            if (classIdParam == null || classIdParam.isEmpty()) {
+                request.setAttribute("msg", "Lỗi: Không tìm thấy Class_ID!");
+                request.setAttribute("status", "error");
+                request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
+                return;
+            }
+            int claId = Integer.parseInt(classIdParam);
+
+            if (stuId == null || stuName == null || stuId.isEmpty() || stuName.isEmpty()) {
+                request.setAttribute("msg", "Vui lòng nhập mã sinh viên và họ tên!");
+                request.setAttribute("status", "warning");
+                request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
                 return;
             }
 
-            try {
-                int birthyear = Integer.parseInt(birthyearStr);
-                int claId = Integer.parseInt(claIdStr);
+            HttpSession session = request.getSession();
+            Integer accIdObj = (Integer) session.getAttribute("accountId");
+            int accId = (accIdObj != null) ? accIdObj : 0;
 
-                if (birthyear < 1900 || birthyear > 2025) {
-                    response.sendRedirect("AddStudent.jsp?msg=Năm sinh không hợp lệ!");
-                    return;
+            ClassStudentDAO dao = new ClassStudentDAO();
+            Student existingStudent = dao.getStudentById(stuId);
+
+            if (existingStudent != null) {
+                if (existingStudent.getClaId() != claId) {
+                    dao.updateStudentClass(stuId, claId);
+                    request.setAttribute("msg", "Sinh viên đã tồn tại, cập nhật lớp học!");
+                    request.setAttribute("status", "warning");
+                } else {
+                    request.setAttribute("msg", "Sinh viên đã tồn tại trong lớp này!");
+                    request.setAttribute("status", "error");
                 }
-
-                int accId = 0; // Giá trị mặc định hoặc lấy từ session/database
-
-                Student newStudent = new Student(stuId, stuName, birthyear, gender, phone, email, address, claId, accId);
-                ClassStudentDAO dao = new ClassStudentDAO();
-                dao.addStudent(newStudent);
-
-                response.sendRedirect("ClassDetail?classID=" + claId);
-            } catch (NumberFormatException e) {
-                response.sendRedirect("AddStudent.jsp?msg=Năm sinh phải là số nguyên hợp lệ!");
+                request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
+                return;
             }
+
+            Student newStudent = new Student(stuId, stuName, 2000, "Nam", "", "", "", claId, accId);
+            boolean success = dao.addStudent(newStudent);
+
+            if (success) {
+                request.setAttribute("msg", "Thêm sinh viên thành công!");
+                request.setAttribute("status", "success");
+            } else {
+                request.setAttribute("msg", "Lỗi: Mã sinh viên đã tồn tại!");
+                request.setAttribute("status", "error");
+            }
+            request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
+
+        } catch (NumberFormatException e) {
+            request.setAttribute("msg", "Lỗi: Class_ID không hợp lệ!");
+            request.setAttribute("status", "error");
+            request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("AddStudent.jsp?msg=Lỗi hệ thống, vui lòng thử lại!");
+            request.setAttribute("msg", "Lỗi hệ thống, vui lòng thử lại!");
+            request.setAttribute("status", "error");
+            request.getRequestDispatcher("AddStudent.jsp").forward(request, response);
         }
     }
-
 }
