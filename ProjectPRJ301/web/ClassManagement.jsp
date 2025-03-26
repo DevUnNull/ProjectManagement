@@ -73,6 +73,10 @@
                     style="padding: 10px 20px; background-color: #4285f4; color: #fff; border: none; cursor: pointer;">
                 Thêm Lớp
             </button>
+            <c:if test="${not empty error}">
+                <p style="color: red;">${error}</p>
+            </c:if>
+
 
         </div>
     </body>

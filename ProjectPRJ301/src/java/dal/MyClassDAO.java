@@ -50,39 +50,32 @@ public class MyClassDAO extends DBContext {
     
  
     public void insertClass(MyClass myClass) {
-    if (isClassExist(myClass.getClaId())) {
-        System.out.println("Class ID đã tồn tại!");
-        return;
+        String sql = "INSERT INTO class (Class_ID, Class_Name, Department_ID) VALUES (?, ?, ?)";
+        try {
+            PreparedStatement stmt = connection.prepareStatement(sql);
+            stmt.setInt(1, myClass.getClaId());
+            stmt.setString(2, myClass.getClaName());
+            stmt.setInt(3, myClass.getDepId());
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    String sql = "INSERT INTO class (Class_ID, Class_Name, Department_ID) VALUES (?, ?, ?)";
-    try {
-        PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, myClass.getClaId());
-        stmt.setString(2, myClass.getClaName());
-        stmt.setInt(3, myClass.getDepId());
-        stmt.executeUpdate();
-        stmt.close();
-    } catch (SQLIntegrityConstraintViolationException e) {
-        System.out.println("Lỗi: Class ID đã tồn tại trong database!");
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
-}
-    public boolean isClassExist(int classId) {
+    public boolean isClassExisted(int classID) {
     String sql = "SELECT COUNT(*) FROM class WHERE Class_ID = ?";
     try {
         PreparedStatement stmt = connection.prepareStatement(sql);
-        stmt.setInt(1, classId);
+        stmt.setInt(1, classID);
         ResultSet rs = stmt.executeQuery();
+        
         if (rs.next() && rs.getInt(1) > 0) {
-            return true; // Class_ID đã tồn tại
+            return true; // Lớp học đã tồn tại
         }
     } catch (SQLException e) {
         e.printStackTrace();
     }
-    return false; // Không tồn tại
+    return false; // Không tìm thấy lớp học
 }
-
 
 }

@@ -23,7 +23,7 @@ public class AddClass extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Lấy dữ liệu từ form dưới dạng chuỗi
+        // Lấy dữ liệu từ form
         String classIDStr = request.getParameter("classID");
         String className = request.getParameter("className");
         String departmentStr = request.getParameter("departmentID");
@@ -31,17 +31,25 @@ public class AddClass extends HttpServlet {
         try {
             int classID = Integer.parseInt(classIDStr.trim());
             int depID = Integer.parseInt(departmentStr.trim());
-            MyClass myClass = new MyClass(classID, className, depID);
+
             MyClassDAO dao = new MyClassDAO();
+
+            // Kiểm tra nếu lớp học đã tồn tại
+            if (dao.isClassExisted(classID)) {
+                request.setAttribute("error", "Mã lớp học đã tồn tại");
+                request.getRequestDispatcher("classManagement").forward(request, response);
+                return;
+            }
+
+            // Nếu chưa tồn tại thì thêm vào
+            MyClass myClass = new MyClass(classID, className, depID);
             dao.insertClass(myClass);
+
             response.sendRedirect("classManagement");
         } catch (NumberFormatException e) {
-            request.setAttribute("error", "Lớp học đã tồn tại!");
-            request.getRequestDispatcher("AddClass.jsp").forward(request, response);
-            return;
+            request.setAttribute("error", "Dữ liệu nhập không hợp lệ!");
+            request.getRequestDispatcher("classManagement").forward(request, response);
         }
-
     }
-    
 
 }
