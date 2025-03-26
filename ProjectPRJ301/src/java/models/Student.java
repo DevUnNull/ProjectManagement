@@ -15,16 +15,18 @@ public class Student {
     private String gender;
     private String phone;
     private String email;
+    private String address;
     private int claId;
     private int accId;
 
-    public Student(String stuId, String stuName, int birthyear, String gender, String phone, String email, int claId, int accId) {
+    public Student(String stuId, String stuName, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
         this.stuId = stuId;
         this.stuName = stuName;
         this.birthyear = birthyear;
         this.gender = gender;
         this.phone = phone;
         this.email = email;
+        this.address = address;
         this.claId = claId;
         this.accId = accId;
     }
@@ -77,6 +79,14 @@ public class Student {
         this.email = email;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public int getClaId() {
         return claId;
     }
@@ -92,5 +102,6 @@ public class Student {
     public void setAccId(int accId) {
         this.accId = accId;
     }
+
     
 }

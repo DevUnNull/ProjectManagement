@@ -31,9 +31,10 @@ public class StudentDAO extends DBContext{
                 String gender = rs.getString("Gender");
                 String phone = rs.getString("Phone");
                 String email = rs.getString("Email");
+                String address = rs.getString("Address");
                 int claId = rs.getInt("Class_ID");
                 int acId = rs.getInt("Account_ID");
-                student = new Student(id, name, dob, gender, phone, email, claId, acId);
+                student = new Student(id, name, dob, gender, phone, email, address, claId, accId);
             }
         } catch (Exception e) {
         }

@@ -21,5 +21,7 @@
         <p><b>Họ Tên:</b> <%= stu.getStuName() %></p>
         <p><b>Năm Sinh:</b> <%= stu.getBirthyear() %></p>
         <p><b>Giới Tính:</b> <%= stu.getGender() %></p>
+        <p><b>Địa chỉ:</b> <%= stu.getAddress() %></p>
+        
     </body>
 </html>
