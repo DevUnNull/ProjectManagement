@@ -9,19 +9,19 @@ package models;
  * @author PHAM THAI AN
  */
 public class Department {
-    private int depId;
+    private String depId;
     private String depName;
 
-    public Department(int depId, String depName) {
+    public Department(String depId, String depName) {
         this.depId = depId;
         this.depName = depName;
     }
 
-    public int getDepId() {
+    public String getDepId() {
         return depId;
     }
 
-    public void setDepId(int depId) {
+    public void setDepId(String depId) {
         this.depId = depId;
     }
 
@@ -32,5 +32,6 @@ public class Department {
     public void setDepName(String depName) {
         this.depName = depName;
     }
+
     
 }
