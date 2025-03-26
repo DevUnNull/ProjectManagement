@@ -12,6 +12,10 @@
         <servlet-name>UpdateAccountServlet</servlet-name>
         <servlet-class>Controllers.UpdateAccountServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ClassManagement</servlet-name>
+        <servlet-class>controllers.ClassManagement</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/adminController</url-pattern>
@@ -23,5 +27,9 @@
     <servlet-mapping>
         <servlet-name>UpdateAccountServlet</servlet-name>
         <url-pattern>/UpdateAccountServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassManagement</servlet-name>
+        <url-pattern>/classManagement</url-pattern>
     </servlet-mapping>
 </web-app>

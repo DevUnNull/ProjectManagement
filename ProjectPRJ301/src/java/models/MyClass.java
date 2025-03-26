@@ -8,15 +8,19 @@ package models;
  *
  * @author PHAM THAI AN
  */
-public class Class {
+public class MyClass {
     private int claId;
     private String claName;
     private int depId;
 
-    public Class(int claId, String claName, int depId) {
+    public MyClass(int claId, String claName, int depId) {
         this.claId = claId;
         this.claName = claName;
         this.depId = depId;
+    }
+
+    public MyClass(String classID, String className, int departmentID) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     public int getClaId() {
