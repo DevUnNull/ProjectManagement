@@ -1,6 +1,7 @@
 package dal;
 
 import dal.DBContext;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -86,8 +87,7 @@ public class Admin_AccountDAO {
         }
     }
 
-    public boolean insertAccount(String username, String email, String password, int roleID) {
-        // Kiểm tra xem email đã tồn tại chưa
+    public boolean insertAccount(String username, String email, String password, int roleID, HttpSession session) {
         String checkEmailSQL = "SELECT COUNT(*) FROM Account WHERE Email = ?";
         String insertSQL = "INSERT INTO Account (Account_ID, Username, Email, Password, Role_ID) "
                 + "VALUES ((SELECT ISNULL(MAX(Account_ID), 0) + 1 FROM Account), ?, ?, ?, ?)";
@@ -96,12 +96,12 @@ public class Admin_AccountDAO {
 
             checkStmt.setString(1, email);
             ResultSet rs = checkStmt.executeQuery();
+
             if (rs.next() && rs.getInt(1) > 0) {
-                System.out.println("❌ Email đã tồn tại, không thể thêm tài khoản mới!");
+                session.setAttribute("errorMessage", "❌ Email đã tồn tại, không thể thêm tài khoản mới!");
                 return false;
             }
 
-            // Nếu email chưa tồn tại, thực hiện INSERT
             try (PreparedStatement insertStmt = conn.prepareStatement(insertSQL)) {
                 insertStmt.setString(1, username);
                 insertStmt.setString(2, email);
@@ -109,25 +109,13 @@ public class Admin_AccountDAO {
                 insertStmt.setInt(4, roleID);
 
                 int rowsInserted = insertStmt.executeUpdate();
-                return rowsInserted > 0;  // Trả về true nếu thêm thành công
+                return rowsInserted > 0;
             }
 
         } catch (SQLException e) {
-            e.printStackTrace();
+            session.setAttribute("errorMessage", "Không thể thêm tài khoản do lỗi hệ thống!");
             return false;
         }
     }
-
-    public static void main(String[] args) {
-    Admin_AccountDAO dao = new Admin_AccountDAO();
-    boolean success = dao.insertAccount("admin", "admin@example.com", "123456", 1);
-
-    if (success) {
-        System.out.println("✅ Thêm tài khoản thành công!");
-    } else {
-        System.out.println("❌ Không thể thêm tài khoản, có thể email đã tồn tại.");
-    }
-}
-
 
 }

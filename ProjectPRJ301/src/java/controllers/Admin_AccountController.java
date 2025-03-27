@@ -84,16 +84,18 @@ public class Admin_AccountController extends HttpServlet {
             String password = request.getParameter("password");
             int roleId = Integer.parseInt(request.getParameter("roleId"));
 
+            HttpSession session = request.getSession();
             Admin_AccountDAO dao = new Admin_AccountDAO();
-            boolean success = dao.insertAccount(username, email, password, roleId);
 
-            if (success) {
-                request.setAttribute("successMessage", "Tài khoản đã được tạo thành công!");
-            } else {
-                request.setAttribute("errorMessage", "Lỗi khi thêm tài khoản!");
+            boolean isInserted = dao.insertAccount(username, email, password, roleId, session);
+
+            if (isInserted) {
+                session.setAttribute("successMessage", "✅ Tài khoản đã được thêm thành công!");
             }
-            request.getRequestDispatcher("AdminCreateAccount.jsp").forward(request, response);
+
+            response.sendRedirect("AdminCreateAccount.jsp"); // Chuyển hướng về trang thêm tài khoản
         }
+
     }
 
     @Override

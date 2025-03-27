@@ -10,12 +10,25 @@
         <h2>Thêm Tài Khoản Mới</h2>
 
         <%-- Hiển thị thông báo --%>
-        <% if (request.getAttribute("successMessage") != null) { %>
-        <p style="color: green;"><%= request.getAttribute("successMessage") %></p>
-        <% } %>
-        <% if (request.getAttribute("errorMessage") != null) { %>
-        <p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
-        <% } %>
+        <% 
+        String errorMessage = (String) session.getAttribute("errorMessage");
+        String successMessage = (String) session.getAttribute("successMessage");
+
+    if (errorMessage != null) { 
+        %>
+        <p style="color: red;"><%= errorMessage %></p>
+        <% 
+                session.removeAttribute("errorMessage"); // Xóa lỗi sau khi hiển thị
+            }
+
+            if (successMessage != null) { 
+        %>
+        <p style="color: green;"><%= successMessage %></p>
+        <% 
+                session.removeAttribute("successMessage"); // Xóa thông báo sau khi hiển thị
+            } 
+        %>
+
 
         <form action="Admin_AccountController" method="POST">
             <input type="hidden" name="action" value="create">
@@ -45,7 +58,7 @@
                     }
                 }
             </script>
-            
+
         </form>
 
     </body>
