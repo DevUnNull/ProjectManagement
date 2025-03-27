@@ -52,7 +52,7 @@ public class Admin_AccountController extends HttpServlet {
         processRequest(request, response);
 
         String action = request.getParameter("action");
-        
+
     }
 
     @Override
@@ -76,10 +76,12 @@ public class Admin_AccountController extends HttpServlet {
                 session.setAttribute("successMessage", "Tài khoản đã được cập nhật thành công!");
                 session.setAttribute("updatedAccount", new Account(id, username, email, password, roleId));
 
-                response.sendRedirect("editAccount.jsp?id=" + id); // 🔥 Quay lại trang chỉnh sửa với dữ liệu giữ nguyên
+                response.sendRedirect("editAccount.jsp?id=" + id);
+                return; // ⬅ DỪNG XỬ LÝ Ở ĐÂY
             } catch (NumberFormatException e) {
                 request.setAttribute("error", "Dữ liệu nhập không hợp lệ!");
                 request.getRequestDispatcher("editAccount.jsp").forward(request, response);
+                return; // ⬅ DỪNG XỬ LÝ Ở ĐÂY
             }
         }
 
@@ -98,21 +100,27 @@ public class Admin_AccountController extends HttpServlet {
                 session.setAttribute("successMessage", "✅ Tài khoản đã được thêm thành công!");
             }
 
-            response.sendRedirect("AdminCreateAccount.jsp"); // Chuyển hướng về trang thêm tài khoản
+            response.sendRedirect("AdminCreateAccount.jsp");
+            return; // ⬅ DỪNG XỬ LÝ Ở ĐÂY
         }
 
         if ("delete".equals(action)) {
-            int accountId = Integer.parseInt(request.getParameter("id"));
-            System.out.println("ID cần xóa: " + accountId); // Debug kiểm tra ID
+            try {
+                int accountId = Integer.parseInt(request.getParameter("id"));
+                System.out.println("ID cần xóa: " + accountId); // Debug kiểm tra ID
 
-            accountDAO.deleteAccount(accountId);
+                accountDAO.deleteAccount(accountId);
 
-            // 🔥 Chuyển hướng về chính Servlet để lấy lại danh sách
-            response.sendRedirect("Admin_AccountController");
-        } else {
-            processRequest(request, response);
+                response.sendRedirect("Admin_AccountController");
+                return; // ⬅ DỪNG XỬ LÝ Ở ĐÂY
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "ID không hợp lệ!");
+                request.getRequestDispatcher("AdminAccount.jsp").forward(request, response);
+                return; // ⬅ DỪNG XỬ LÝ Ở ĐÂY
+            }
         }
 
+        processRequest(request, response); // Chỉ gọi khi không có hành động nào khớp
     }
 
     @Override
