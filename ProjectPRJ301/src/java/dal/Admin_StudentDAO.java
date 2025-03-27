@@ -98,6 +98,27 @@ public class Admin_StudentDAO {
             e.printStackTrace();
         }
     }
+    
+     public void addStudent(String id, String name, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
+        String query = "INSERT INTO Student (Student_ID, Full_Name, BirthYear, Gender, Phone, Email, Address, Class_ID, Account_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            ps.setString(2, name);
+            ps.setInt(3, birthyear);
+            ps.setString(4, gender);
+            ps.setString(5, phone);
+            ps.setString(6, email);
+            ps.setString(7, address);
+            ps.setInt(8, claId);
+            ps.setInt(9, accId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
 
     public static void main(String[] args) {
         Admin_StudentDAO dao = new Admin_StudentDAO();

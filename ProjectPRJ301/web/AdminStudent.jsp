@@ -111,30 +111,40 @@
             <th>Tài Khoản</th>
             <th>Hành động</th>
         </tr>
-        <%
-            List<Student> list = (List<Student>) request.getAttribute("listP");
-            if (list != null) {
-                for (Student s : list) {
-        %>
-        <tr>
-            <td><%= s.getStuId() %></td>
-            <td><%= s.getStuName() %></td>
-            <td><%= s.getBirthyear() %></td>
-            <td><%= s.getGender() %></td>
-            <td><%= s.getPhone() %></td>
-            <td><%= s.getEmail() %></td>
-            <td><%= s.getAddress() %></td>
-            <td><%= s.getClaId() %></td>
-            <td><%= s.getAccId() %></td>
-            <td>
-                <a href="editStudent.jsp?id=<%= s.getStuId() %>" class="btn edit">Sửa</a>
-                <a href="deleteStudent?id=<%= s.getStuId() %>" class="btn delete">Xóa</a>
-            </td>
-        </tr>
-        <%
+        <c:forEach var="student" items="${listP}">
+            <tr>
+                <td>${student.stuId}</td>
+                <td>${student.stuName}</td>
+                <td>${student.birthyear}</td>
+                <td>${student.gender}</td>
+                <td>${student.phone}</td>
+                <td>${student.email}</td>
+                <td>${student.address}</td>
+                <td>${student.claId}</td>
+                <td>${student.accId}</td>
+                <td>
+                    <a href="editStudent.jsp?id=${student.stuId}" class="btn edit">Sửa</a>
+                    <a href="javascript:void(0);" class="btn delete" onclick="confirmDelete(${student.stuId})">Xóa</a>
+                </td>
+            </tr>
+        </c:forEach>
+
+        <script>
+            function confirmDelete(studentId) {
+                if (confirm("Bạn có chắc chắn muốn xóa sinh viên này không?")) {
+                    window.location.href = "Admin_StudentController?action=delete&id=" + studentId;
                 }
             }
-        %>
+        </script>
+
+        <c:if test="${not empty message}">
+            <p style="color: green;">${message}</p>
+        </c:if>
+        <c:if test="${not empty error}">
+            <p style="color: red;">${error}</p>
+        </c:if>
+
+ 
     </table>
 
 

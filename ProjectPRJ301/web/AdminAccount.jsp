@@ -89,6 +89,10 @@
 <body>
     <h1>Account List</h1>
 
+    <form action="AdminCreateAccount.jsp" method="get">
+        <input type="submit" value="Thêm Tài Khoản">
+    </form>
+    
     <form action="Admin_AccountController" method="GET">
         <input type="text" name="searchID" placeholder="Nhập ID Tài Khoản" 
                value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">

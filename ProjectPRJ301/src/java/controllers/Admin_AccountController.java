@@ -77,6 +77,25 @@ public class Admin_AccountController extends HttpServlet {
                 request.getRequestDispatcher("editAccount.jsp").forward(request, response);
             }
         }
+
+        if ("create".equals(action)) {
+            String username = request.getParameter("username");
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            int roleId = Integer.parseInt(request.getParameter("roleId"));
+
+            HttpSession session = request.getSession();
+            Admin_AccountDAO dao = new Admin_AccountDAO();
+
+            boolean isInserted = dao.insertAccount(username, email, password, roleId, session);
+
+            if (isInserted) {
+                session.setAttribute("successMessage", "✅ Tài khoản đã được thêm thành công!");
+            }
+
+            response.sendRedirect("AdminCreateAccount.jsp"); // Chuyển hướng về trang thêm tài khoản
+        }
+
     }
 
     @Override

@@ -26,6 +26,7 @@ public class DBContext {
         return connection;
     }
 
+    
     // Thêm phương thức closeConnection để đóng kết nối
     public void closeConnection(Connection conn) {
         if (conn != null) {
