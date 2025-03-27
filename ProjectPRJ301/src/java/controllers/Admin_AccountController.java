@@ -13,6 +13,8 @@ import jakarta.servlet.http.HttpSession;
 
 public class Admin_AccountController extends HttpServlet {
 
+    private Admin_AccountDAO accountDAO = new Admin_AccountDAO();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -48,6 +50,9 @@ public class Admin_AccountController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+
+        String action = request.getParameter("action");
+        
     }
 
     @Override
@@ -94,6 +99,18 @@ public class Admin_AccountController extends HttpServlet {
             }
 
             response.sendRedirect("AdminCreateAccount.jsp"); // Chuyển hướng về trang thêm tài khoản
+        }
+
+        if ("delete".equals(action)) {
+            int accountId = Integer.parseInt(request.getParameter("id"));
+            System.out.println("ID cần xóa: " + accountId); // Debug kiểm tra ID
+
+            accountDAO.deleteAccount(accountId);
+
+            // 🔥 Chuyển hướng về chính Servlet để lấy lại danh sách
+            response.sendRedirect("Admin_AccountController");
+        } else {
+            processRequest(request, response);
         }
 
     }

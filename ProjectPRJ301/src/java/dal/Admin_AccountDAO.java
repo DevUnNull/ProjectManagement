@@ -74,16 +74,13 @@ public class Admin_AccountDAO {
         return false; // Trả về false nếu có lỗi xảy ra
     }
 
-    public boolean deleteAccount(int accountID) {
-        String query = "DELETE FROM Account WHERE = ?";
-        try (Connection con = new DBContext().getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
-
-            ps.setInt(1, accountID);
-            int rowsAffected = ps.executeUpdate();
-            return rowsAffected > 0; // Trả về true nếu xóa thành công
-        } catch (Exception e) {
+    public void deleteAccount(int accountId) {
+        String query = "DELETE FROM Account WHERE Account_ID = ?";
+        try (Connection conn = new DBContext().getConnection(); PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, accountId);
+            ps.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
-            return false;
         }
     }
 
@@ -117,5 +114,6 @@ public class Admin_AccountDAO {
             return false;
         }
     }
+
 
 }
