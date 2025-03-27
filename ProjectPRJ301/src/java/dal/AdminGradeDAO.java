@@ -122,6 +122,54 @@ public boolean updateGrade(String studentId, String subjectId, String semesterId
     }
     return false;
 }
+public List<GradeDTO> searchGrades(String studentId, String semester) {
+    List<GradeDTO> gradeList = new ArrayList<>();
+    String sql = "SELECT s.Student_ID, s.Full_Name AS Student_Name, c.Class_Name, "
+               + "sub.Subject_ID, sub.Subject_Name, sem.Semester_ID, sem.Semester_Name, "
+               + "g.Mid_term, g.Final_Exam, g.Total_Grade "
+               + "FROM Grade g "
+               + "JOIN Student s ON g.Student_ID = s.Student_ID "
+               + "JOIN Class c ON s.Class_ID = c.Class_ID "
+               + "JOIN Subject sub ON g.Subject_ID = sub.Subject_ID "
+               + "JOIN Semester sem ON g.Semester_ID = sem.Semester_ID "
+               + "WHERE s.Student_ID LIKE ? AND sem.Semester_Name LIKE ? "
+               + "ORDER BY c.Class_Name, s.Student_ID, sem.Semester_ID;";
+    
+    try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        // Nếu giá trị tìm kiếm rỗng, sử dụng ký tự '%' để tìm tất cả
+        String studentParam = (studentId == null || studentId.trim().isEmpty()) 
+                                ? "%" 
+                                : "%" + studentId.trim() + "%";
+        String semesterParam = (semester == null || semester.trim().isEmpty()) 
+                                ? "%" 
+                                : "%" + semester.trim() + "%";
+        stmt.setString(1, studentParam);
+        stmt.setString(2, semesterParam);
+        
+        try (ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                GradeDTO grade = new GradeDTO(
+                    rs.getString("Student_ID"),
+                    rs.getString("Student_Name"),
+                    rs.getString("Class_Name"),
+                    rs.getString("Subject_ID"),
+                    rs.getString("Subject_Name"),
+                    rs.getString("Semester_ID"),
+                    rs.getString("Semester_Name"),
+                    rs.getFloat("Mid_term"),
+                    rs.getFloat("Final_Exam"),
+                    rs.getFloat("Total_Grade")
+                );
+                gradeList.add(grade);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return gradeList;
+}
+
 
 }
 
