@@ -3,16 +3,12 @@
     Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css để chỉnh sửa mẫu này
 */
 
-
-
-
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
-
 
 body {
     display: flex;
@@ -26,84 +22,72 @@ body {
     background-repeat: no-repeat;
 }
 
-
-
-
 .wrapper {
-    width: 350px;
-    padding: 30px;
-    background: rgba(255, 255, 255, 0.2); /* Nền trong suốt */
-    backdrop-filter: blur(10px); /* Hiệu ứng mờ */
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
+    width: 500px; /* Tăng chiều rộng */
+    padding: 40px; /* Tăng padding */
+    background: rgba(255, 255, 255, 0.3); /* Tăng độ rõ cho nền */
+    backdrop-filter: blur(12px); /* Mờ mạnh hơn */
+    border-radius: 12px; /* Bo góc nhiều hơn */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3); /* Đổ bóng rõ hơn */
     text-align: center;
 }
 
-
 .wrapper h1 {
-    font-size: 20px;
-    margin-bottom: 15px;
-    color: #333;
+    font-size: 26px; /* Tăng kích thước chữ tiêu đề */
+    margin-bottom: 20px;
+    color: #222;
 }
-
-
 
 .input-box {
     position: relative;
     width: 100%;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
-
 
 .input-box input {
     width: 100%;
-    padding: 8px 10px 8px 35px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
-    background: #f9f9f9;
+    padding: 12px 15px 12px 50px; /* Tăng padding */
+    border: 2px solid #bbb;
+    border-radius: 8px; /* Bo góc hơn */
+    font-size: 16px; /* Tăng cỡ chữ */
+    background: #fff;
 }
-
 
 .input-box i {
     position: absolute;
-    left: 10px;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
-    color: #555;
-    font-size: 16px;
+    color: #444;
+    font-size: 20px; /* Tăng kích thước icon */
 }
-
 
 .remember-forgot {
     display: flex;
     justify-content: space-between;
-    font-size: 12px;
-    margin-bottom: 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
 }
-
-
-
 
 .btn {
     width: 100%;
-    padding: 8px;
+    padding: 12px;
     border: none;
-    border-radius: 6px;
+    border-radius: 8px;
     background: #4facfe;
     color: white;
-    font-size: 14px;
+    font-size: 18px; /* Tăng kích thước chữ */
     cursor: pointer;
+    font-weight: bold;
 }
 
 .btn:hover {
     background: #00c3ff;
 }
 
-
 .register-link {
-    margin-top: 10px;
-    font-size: 12px;
+    margin-top: 12px;
+    font-size: 14px;
 }
 
 .register-link a {
@@ -134,7 +118,3 @@ body {
 .logo:hover {
     transform: scale(1.1); 
 }
-
-
-
-
