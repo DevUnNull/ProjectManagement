@@ -13,8 +13,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="CSS/Login.css">
     <div class="logo-container">
-        <a href="http://localhost:9999/StudentManagement" target="_blank">
-            <img src="IMAGE/fptulogo-removebg-preview.png" alt="FPT Logo" class="logo"/>
+        <a href="http://localhost:9999/ProjectPRJ301/" target="_blank">
+            <img src="IMAGE/StuGo.png" alt="FPT Logo" class="logo"/>
         </a>
     </div>
 

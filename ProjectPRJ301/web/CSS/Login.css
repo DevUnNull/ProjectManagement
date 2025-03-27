@@ -19,7 +19,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-image: url('../IMAGE/fpthanoi01-130.jpg');
+    background-image: url('../IMAGE/Học tập trải nghiệm (1).png');
     padding: 20px;
     background-size: cover;
     background-position: center;
@@ -118,16 +118,14 @@ body {
 
 .logo-container {
     position: absolute;
-    top: 15px;
-    left: 15px;
-    background: rgba(255, 255, 255, 0.8); /* Nền trắng trong suốt */
+    top: -10px;
+    left: 0px;
     padding: 10px;
     border-radius: 10px; /* Bo góc */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Đổ bóng nhẹ */
 }
 
 .logo {
-    width: 160px;
+    width: 200px;
     height: auto;
     display: block;
     transition: transform 0.3s ease-in-out;

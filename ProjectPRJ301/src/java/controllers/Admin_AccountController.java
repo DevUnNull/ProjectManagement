@@ -66,7 +66,7 @@ public class Admin_AccountController extends HttpServlet {
                 Admin_AccountDAO dao = new Admin_AccountDAO();
                 dao.updateAccount(id, username, email, password, roleId);
 
-                // ✅ Lưu dữ liệu vào session
+                //  Lưu dữ liệu vào session
                 HttpSession session = request.getSession();
                 session.setAttribute("successMessage", "Tài khoản đã được cập nhật thành công!");
                 session.setAttribute("updatedAccount", new Account(id, username, email, password, roleId));
