@@ -9,6 +9,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class Admin_AccountController extends HttpServlet {
 
@@ -31,7 +32,8 @@ public class Admin_AccountController extends HttpServlet {
                     list.add(account);
                 }
             } catch (NumberFormatException e) {
-                list = new ArrayList<>(); // Nếu nhập sai định dạng, trả về danh sách rỗng
+                request.setAttribute("error", "ID không hợp lệ. Vui lòng nhập số nguyên!");
+                list = new ArrayList<>(); // Trả về danh sách rỗng nếu nhập sai định dạng
             }
         } else {
             list = dao.getAllAccounts(); // Nếu không tìm kiếm, lấy tất cả tài khoản
@@ -49,26 +51,33 @@ public class Admin_AccountController extends HttpServlet {
     }
 
     @Override
-protected void doPost(HttpServletRequest request, HttpServletResponse response)
-        throws ServletException, IOException {
-    String action = request.getParameter("action");
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getParameter("action");
 
-    if ("update".equals(action)) {
-        int id = Integer.parseInt(request.getParameter("id"));
-        String username = request.getParameter("username");
-        String email = request.getParameter("email");
-        String password = request.getParameter("password");
-        int roleId = Integer.parseInt(request.getParameter("roleId"));
+        if ("update".equals(action)) {
+            try {
+                int id = Integer.parseInt(request.getParameter("id"));
+                String username = request.getParameter("username");
+                String email = request.getParameter("email");
+                String password = request.getParameter("password");
+                int roleId = Integer.parseInt(request.getParameter("roleId"));
 
-        Admin_AccountDAO dao = new Admin_AccountDAO();
-        dao.updateAccount(id, username, email, password, roleId);
+                Admin_AccountDAO dao = new Admin_AccountDAO();
+                dao.updateAccount(id, username, email, password, roleId);
 
-        response.sendRedirect("AdminAccount.jsp?message=Account updated successfully");
-    } else {
-        processRequest(request, response);
+                // ✅ Lưu dữ liệu vào session
+                HttpSession session = request.getSession();
+                session.setAttribute("successMessage", "Tài khoản đã được cập nhật thành công!");
+                session.setAttribute("updatedAccount", new Account(id, username, email, password, roleId));
+
+                response.sendRedirect("editAccount.jsp?id=" + id); // 🔥 Quay lại trang chỉnh sửa với dữ liệu giữ nguyên
+            } catch (NumberFormatException e) {
+                request.setAttribute("error", "Dữ liệu nhập không hợp lệ!");
+                request.getRequestDispatcher("editAccount.jsp").forward(request, response);
+            }
+        }
     }
-}
-
 
     @Override
     public String getServletInfo() {

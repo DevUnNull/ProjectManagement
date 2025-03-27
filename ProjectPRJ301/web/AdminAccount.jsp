@@ -90,7 +90,7 @@
     <h1>Account List</h1>
 
     <form action="Admin_AccountController" method="GET">
-        <input type="text" name="searchID" placeholder="Nhập Mã Tài Khoản" 
+        <input type="text" name="searchID" placeholder="Nhập ID Tài Khoản" 
                value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">
         <button type="submit">Tìm kiếm</button>
     </form>
