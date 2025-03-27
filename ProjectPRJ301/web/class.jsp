@@ -61,7 +61,6 @@
             display: block;              /* Giúp cả khối a có thể click */
             text-decoration: none;       /* Bỏ gạch chân */
             color: #333;                 /* Màu chữ */
-            border: 1px solid #ddd;      /* Viền nhẹ */
             padding: 10px 15px;
             border-radius: 4px;
             transition: background-color 0.3s, color 0.3s;
