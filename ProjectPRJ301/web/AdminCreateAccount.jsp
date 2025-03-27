@@ -138,7 +138,7 @@
             <input type="number" name="roleId" required><br>
 
             <button type="submit" onclick="sessionStorage.setItem('saved', 'true');">Thêm Tài Khoản</button>
-            <button type="button" onclick="goBack();">Quay Lại</button>
+            <button type="button" onclick="window.location.href='http://localhost:9999/ProjectPRJ301/Admin_AccountController';">Quay Lại</button>
 
             <script>
                 function goBack() {
