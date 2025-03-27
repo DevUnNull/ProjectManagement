@@ -4,25 +4,47 @@ public class GradeDTO {
     private String studentId;
     private String studentName;
     private String className;
+    private String subjectId;    // Thêm Subject_ID
     private String subjectName;
+    private String semesterId;   // Thêm Semester_ID
     private String semesterName;
     private float midTerm;
     private float finalExam;
     private float totalGrade;
 
-    public GradeDTO(String studentId, String studentName, String className, String subjectName,
-                    String semesterName, float midTerm, float finalExam, float totalGrade) {
+    public GradeDTO(String studentId, String studentName, String className, String subjectId,
+                    String subjectName, String semesterId, String semesterName,
+                    float midTerm, float finalExam, float totalGrade) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.className = className;
+        this.subjectId = subjectId;
         this.subjectName = subjectName;
+        this.semesterId = semesterId;
         this.semesterName = semesterName;
         this.midTerm = midTerm;
         this.finalExam = finalExam;
         this.totalGrade = totalGrade;
     }
 
-    // Getter và Setter
+    // Getter và Setter cho Subject_ID và Semester_ID
+    public String getSubjectId() {
+        return subjectId;
+    }
+
+    public void setSubjectId(String subjectId) {
+        this.subjectId = subjectId;
+    }
+
+    public String getSemesterId() {
+        return semesterId;
+    }
+
+    public void setSemesterId(String semesterId) {
+        this.semesterId = semesterId;
+    }
+
+    // Các getter và setter khác
     public String getStudentId() {
         return studentId;
     }
@@ -93,7 +115,9 @@ public class GradeDTO {
                 "studentId='" + studentId + '\'' +
                 ", studentName='" + studentName + '\'' +
                 ", className='" + className + '\'' +
+                ", subjectId='" + subjectId + '\'' +
                 ", subjectName='" + subjectName + '\'' +
+                ", semesterId='" + semesterId + '\'' +
                 ", semesterName='" + semesterName + '\'' +
                 ", midTerm=" + midTerm +
                 ", finalExam=" + finalExam +

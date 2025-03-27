@@ -5,8 +5,6 @@
 <%@ page import="dto.GradeDTO" %>
 <div class="content">
 
-
-
     <title>Danh sách điểm sinh viên</title>
     <style>
         table {
@@ -21,8 +19,18 @@
         th {
             background-color: #f2f2f2;
         }
+        .edit-btn {
+            display: inline-block;
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
     </style>
-
 
     <h2>Danh sách điểm sinh viên</h2>
     <table>
@@ -35,6 +43,7 @@
             <th>Điểm giữa kỳ</th>
             <th>Điểm cuối kỳ</th>
             <th>Tổng điểm</th>
+            <th>Update</th> <!-- Thêm cột chỉnh sửa -->
         </tr>
         <%
             List<GradeDTO> gradeList = (List<GradeDTO>) request.getAttribute("gradeList");
@@ -50,17 +59,19 @@
             <td><%= grade.getMidTerm() %></td>
             <td><%= grade.getFinalExam() %></td>
             <td><%= grade.getTotalGrade() %></td>
+            <td>
+                <a class="edit-btn" href="EditGrade?studentId=<%= grade.getStudentId() %>&subjectId=<%= grade.getSubjectId() %>&semesterId=<%= grade.getSemesterId() %>">Update</a>
+            </td>
         </tr>
         <%
                 }
             } else {
         %>
         <tr>
-            <td colspan="8">Không có dữ liệu</td>
+            <td colspan="9">Không có dữ liệu</td>
         </tr>
         <% } %>
     </table>
-
 
 </div>
 
