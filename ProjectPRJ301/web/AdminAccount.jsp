@@ -1,150 +1,172 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:import url="SidebarAdmin.jsp"/>
-<div class="content">
+    <%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+    <c:import url="SidebarAdmin.jsp"/>
+    <div class="content">
 
 
-    <title>Admin - Account Management</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+        <title>Admin - Account Management</title>
+        <style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-        .content {
-            width: 90%;
-            max-width: 1200px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+.content {
+    margin-left: 250px; /* Để phù hợp với sidebar */
+    padding: 20px;
+}
 
-        h1 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+h1 {
+    color: #333;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-            background: #fff;
-        }
+form {
+    margin-bottom: 15px;
+}
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
+input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-        th {
-            background: #007bff;
-            color: white;
-            font-weight: bold;
-        }
+button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
+button:hover {
+    background-color: #0056b3;
+}
 
-        tr:hover {
-            background: #e9ecef;
-        }
+input[type="submit"] {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-        .btn {
-            display: inline-block;
-            padding: 8px 14px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
-            margin: 5px;
-            border: none;
-        }
+input[type="submit"]:hover {
+    background-color: #218838;
+}
 
-        .edit {
-            background-color: #ffc107;
-            color: black;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        .delete {
-            background-color: #dc3545;
-            color: white;
-        }
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
 
-        .btn:hover {
-            filter: brightness(90%);
-        }
+table th {
+    background-color: #007bff;
+    color: white;
+}
 
-    </style>
-</head>
-<body>
-    <h1>Account List</h1>
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
 
-    <form action="AdminCreateAccount.jsp" method="get">
-        <input type="submit" value="Thêm Tài Khoản">
-    </form>
-    
-    <form action="Admin_AccountController" method="GET">
-        <input type="text" name="searchID" placeholder="Nhập ID Tài Khoản" 
-               value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">
-        <button type="submit">Tìm kiếm</button>
-    </form>
+a.btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+a.edit {
+    background-color: #ffc107;
+    color: black;
+}
+
+a.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+a.edit:hover {
+    background-color: #e0a800;
+}
+
+a.delete:hover {
+    background-color: #c82333;
+}
+
+        </style>
+    </head>
+    <body>
+        <h1>Account List</h1>
+
+        <form action="AdminCreateAccount.jsp" method="get">
+            <input type="submit" value="Thêm Tài Khoản">
+        </form>
+
+        <form action="Admin_AccountController" method="GET">
+            <input type="text" name="searchID" placeholder="Nhập ID Tài Khoản" 
+                   value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">
+            <button type="submit">Tìm kiếm</button>
+        </form>
 
 
 
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Role ID</th>
-            <th>Actions</th>
-        </tr>
-        <c:forEach var="account" items="${listA}">
+        <table border="1">
             <tr>
-                <td>${account.accId}</td>
-                <td>${account.username}</td>
-                <td>${account.email}</td>
-                <td>${account.roleId}</td>
-                <td>
-                    <a href="editAccount.jsp?id=${account.accId}" class="btn edit">Sửa</a>
-                    <a href="javascript:void(0);" class="btn delete"
-                       onclick="confirmDelete(${account.accId})">Xóa</a>
-
-                </td>
-
-
-
-                    <%-- Hiển thị thông báo nếu có --%>
-                    <c:if test="${not empty message}">
-                    <p style="color: green;">${message}</p>
-                </c:if>
-                <c:if test="${not empty error}">
-                    <p style="color: red;">${error}</p>
-                </c:if>
-
-                <script>
-                    function confirmDelete(accountId) {
-                        if (confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) {
-                            window.location.href = "Admin_AccountController?action=delete&id=" + accountId;
-                        }
-                    }
-                </script>
-
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role ID</th>
+                <th>Actions</th>
             </tr>
-        </c:forEach>
-    </table>
+            <c:forEach var="account" items="${listA}">
+                <tr>
+                    <td>${account.accId}</td>
+                    <td>${account.username}</td>
+                    <td>${account.email}</td>
+                    <td>${account.roleId}</td>
+                    <td>
+                        <a href="editAccount.jsp?id=${account.accId}" class="btn edit">Sửa</a>
+                        <a href="javascript:void(0);" class="btn delete"
+                           onclick="confirmDelete(${account.accId})">Xóa</a>
 
-</div>
+                    </td>
 
-</body>
-</html>
+
+
+                        <%-- Hiển thị thông báo nếu có --%>
+                        <c:if test="${not empty message}">
+                        <p style="color: green;">${message}</p>
+                    </c:if>
+                    <c:if test="${not empty error}">
+                        <p style="color: red;">${error}</p>
+                    </c:if>
+
+                    <script>
+                        function confirmDelete(accountId) {
+                            if (confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) {
+                                window.location.href = "Admin_AccountController?action=delete&id=" + accountId;
+                            }
+                        }
+                    </script>
+
+                </tr>
+            </c:forEach>
+        </table>
+
+    </div>
+
+    </body>
+    </html>
