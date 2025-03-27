@@ -6,88 +6,97 @@
 
     <title>Admin - Account Management</title>
     <style>
-   body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-.content {
-    width: 90%;
-    max-width: 1200px;
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
+        .content {
+            width: 90%;
+            max-width: 1200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
 
-h1 {
-    color: #333;
-    margin-bottom: 20px;
-}
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-    background: #fff;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            background: #fff;
+        }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: center;
-}
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
 
-th {
-    background: #007bff;
-    color: white;
-    font-weight: bold;
-}
+        th {
+            background: #007bff;
+            color: white;
+            font-weight: bold;
+        }
 
-tr:nth-child(even) {
-    background: #f9f9f9;
-}
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
 
-tr:hover {
-    background: #e9ecef;
-}
+        tr:hover {
+            background: #e9ecef;
+        }
 
-.btn {
-    display: inline-block;
-    padding: 8px 14px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: 0.3s;
-    margin: 5px;
-    border: none;
-}
+        .btn {
+            display: inline-block;
+            padding: 8px 14px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: 0.3s;
+            margin: 5px;
+            border: none;
+        }
 
-.edit {
-    background-color: #ffc107;
-    color: black;
-}
+        .edit {
+            background-color: #ffc107;
+            color: black;
+        }
 
-.delete {
-    background-color: #dc3545;
-    color: white;
-}
+        .delete {
+            background-color: #dc3545;
+            color: white;
+        }
 
-.btn:hover {
-    filter: brightness(90%);
-}
+        .btn:hover {
+            filter: brightness(90%);
+        }
 
     </style>
 </head>
 <body>
     <h1>Account List</h1>
+
+    <form action="Admin_AccountController" method="GET">
+        <input type="text" name="searchID" placeholder="Nhập Mã Tài Khoản" 
+               value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+
+
     <table border="1">
         <tr>
             <th>ID</th>
@@ -103,7 +112,7 @@ tr:hover {
                 <td>${account.email}</td>
                 <td>${account.roleId}</td>
                 <td>
-                    <a href="editAccount?id=${account.accId}" class="btn edit">Sửa</a>
+                    <a href="editAccount.jsp?id=${account.accId}" class="btn edit">Sửa</a>
                     <a href="deleteAccount?id=${account.accId}" class="btn delete">Xóa</a>
                 </td>
             </tr>

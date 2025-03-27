@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package dal;
+
 import dal.DBContext;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,6 +13,7 @@ import java.util.List;
 import models.Account;
 
 public class Admin_AccountDAO {
+
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -19,7 +21,7 @@ public class Admin_AccountDAO {
     public List<Account> getAllAccounts() {
         List<Account> list = new ArrayList<>();
         String query = "SELECT * FROM Account";
-        
+
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
@@ -38,13 +40,13 @@ public class Admin_AccountDAO {
         }
         return list;
     }
-    
-    public Account getAccountByID(int id) {
+
+    public Account getAccountByID(int accountID) {
         String query = "SELECT * FROM Account WHERE Account_ID = ?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setInt(1, id);
+            ps.setInt(1, accountID);
             rs = ps.executeQuery();
             if (rs.next()) {
                 return new Account(
@@ -58,9 +60,9 @@ public class Admin_AccountDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return null; // Trả về null nếu không tìm thấy
     }
-    
+
     public void updateAccount(int id, String username, String email, String password, int roleId) {
         String query = "UPDATE Account SET Username=?, Email=?, Password=?, Role_ID=? WHERE Account_ID=?";
         try {
@@ -76,7 +78,7 @@ public class Admin_AccountDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteAccount(int accountID) {
         String query = "DELETE FROM Account WHERE Account_ID = ?";
         try {
@@ -88,7 +90,7 @@ public class Admin_AccountDAO {
             e.printStackTrace();
         }
     }
-    
+
     public static void main(String[] args) {
         Admin_AccountDAO dao = new Admin_AccountDAO();
         List<Account> list = dao.getAllAccounts();
@@ -96,4 +98,27 @@ public class Admin_AccountDAO {
             System.out.println(account);
         }
     }
+
+    public Account getAccountByUsername(String username) {
+        String query = "SELECT * FROM Account WHERE Username = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return new Account(
+                        rs.getInt("Account_ID"),
+                        rs.getString("Username"),
+                        rs.getString("Email"),
+                        rs.getString("Password"),
+                        rs.getInt("Role_ID")
+                );
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null; // Trả về null nếu không tìm thấy
+    }
+
 }

@@ -9,6 +9,7 @@ import java.util.List;
 import models.Teacher;
 
 public class Admin_TeacherDAO {
+
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -39,7 +40,7 @@ public class Admin_TeacherDAO {
         }
         return list;
     }
-    
+
     public Teacher getTeacherByID(String id) {
         String query = "SELECT * FROM Teacher WHERE Teacher_ID = ?";
         try {
@@ -66,7 +67,7 @@ public class Admin_TeacherDAO {
         }
         return null;
     }
-    
+
     public void updateTeacher(String id, String name, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
         String query = "UPDATE Teacher SET Full_Name=?, BirthYear=?, Gender=?, Phone=?, Email=?, Address=?, Class_ID=?, Account_ID=? WHERE Teacher_ID=?";
         try {
@@ -86,7 +87,7 @@ public class Admin_TeacherDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteTeacher(String teacherID) {
         String query = "DELETE FROM Teacher WHERE Teacher_ID = ?";
         try {
@@ -98,7 +99,35 @@ public class Admin_TeacherDAO {
             e.printStackTrace();
         }
     }
-    
+
+    public List<Teacher> getTeacherByName(String name) {
+        List<Teacher> list = new ArrayList<>();
+        String query = "SELECT * FROM Teacher WHERE Teacher_ID = ?";
+
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + name + "%"); // Tìm kiếm gần đúng
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                list.add(new Teacher(
+                        rs.getString("Teacher_ID"),
+                        rs.getString("Full_Name"),
+                        rs.getInt("BirthYear"),
+                        rs.getString("Gender"),
+                        rs.getString("Phone"),
+                        rs.getString("Email"),
+                        rs.getString("Address"),
+                        rs.getInt("Class_ID"),
+                        rs.getInt("Account_ID")
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
         Admin_TeacherDAO dao = new Admin_TeacherDAO();
         List<Teacher> list = dao.getAllTeachers();

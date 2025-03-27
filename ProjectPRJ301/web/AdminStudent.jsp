@@ -88,6 +88,16 @@
     </style>
 
     <h2 align="center">Quản lý Sinh viên</h2>
+
+
+    <form action="Admin_StudentController" method="GET">
+        <input type="text" name="searchID" placeholder="Nhập Mã Sinh Viên" 
+               value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+
+
     <table>
         <tr>
             <th>Mã Sinh viên</th>
@@ -117,7 +127,7 @@
             <td><%= s.getClaId() %></td>
             <td><%= s.getAccId() %></td>
             <td>
-                <a href="editStudent?id=<%= s.getStuId() %>" class="btn edit">Sửa</a>
+                <a href="editStudent.jsp?id=<%= s.getStuId() %>" class="btn edit">Sửa</a>
                 <a href="deleteStudent?id=<%= s.getStuId() %>" class="btn delete">Xóa</a>
             </td>
         </tr>

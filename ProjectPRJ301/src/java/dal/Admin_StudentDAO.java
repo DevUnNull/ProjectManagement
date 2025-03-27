@@ -9,6 +9,7 @@ import java.util.List;
 import models.Student;
 
 public class Admin_StudentDAO {
+
     Connection con = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -21,7 +22,7 @@ public class Admin_StudentDAO {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
             rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 list.add(new Student(
                         rs.getString("Student_ID"),
                         rs.getString("Full_Name"),
@@ -39,15 +40,14 @@ public class Admin_StudentDAO {
         }
         return list;
     }
-    
-    public Student getStudentByID(String id) {
+
+    public Student getStudentByID(String studentID) {
         String query = "SELECT * FROM Student WHERE Student_ID = ?";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(query);
-            ps.setString(1, id);
+            ps.setString(1, studentID);
             rs = ps.executeQuery();
-
             if (rs.next()) {
                 return new Student(
                         rs.getString("Student_ID"),
@@ -64,9 +64,9 @@ public class Admin_StudentDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return null; // Trả về null nếu không tìm thấy
     }
-    
+
     public void updateStudent(String id, String name, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
         String query = "UPDATE Student SET Full_Name=?, BirthYear=?, Gender=?, Phone=?, Email=?, Address=?, Class_ID=?, Account_ID=? WHERE Student_ID=?";
         try {
@@ -86,7 +86,7 @@ public class Admin_StudentDAO {
             e.printStackTrace();
         }
     }
-    
+
     public void deleteStudent(String studentID) {
         String query = "DELETE FROM Student WHERE Student_ID = ?";
         try {
@@ -98,7 +98,7 @@ public class Admin_StudentDAO {
             e.printStackTrace();
         }
     }
-    
+
     public static void main(String[] args) {
         Admin_StudentDAO dao = new Admin_StudentDAO();
         List<Student> list = dao.getAllStudents();

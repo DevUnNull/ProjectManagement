@@ -3,7 +3,7 @@
 
 <%
     // Lấy thông tin sinh viên từ request
-    Student s = (Student) request.getAttribute("student");
+    Student s = (Student) request.getAttribute("listP");
 %>
 
 <!DOCTYPE html>

@@ -2,10 +2,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <c:import url="SidebarAdmin.jsp"/>
 <div class="content">
- 
+
 
     <title>Admin - Teacher Management</title>
-     <style>
+    <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -87,6 +87,15 @@
 
 
     <h1>Teacher List</h1>
+
+    <form action="Admin_TeacherController" method="GET">
+        <input type="text" name="searchID" placeholder="Nhập Mã Giáo Viên" 
+               value="<%= request.getParameter("searchID") != null ? request.getParameter("searchID") : "" %>">
+        <button type="submit">Tìm kiếm</button>
+    </form>
+
+
+
     <table border="1">
         <tr>
             <th>ID</th>
@@ -112,7 +121,7 @@
                 <td>${teacher.claId}</td>
                 <td>${teacher.accId}</td>
                 <td>
-                    <a href="editTeacher?id=${teacher.teId}" class="btn edit">Sửa</a>
+                    <a href="editTeacher.jsp?id=${teacher.teId}" class="btn edit">Sửa</a>
                     <a href="deleteTeacher?id=${teacher.teId}" class="btn delete">Xóa</a>
                 </td>
             </tr>
