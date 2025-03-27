@@ -27,7 +27,7 @@
             <ul>
                 <li><a href="viewInfoStudent.jsp"><i class="fas fa-users-cog"></i> Thông tin cá nhân</a></li>
                 <li><a href="class.jsp"><i class="far fa-window-maximize"></i>Lớp Học</a></li>
-                <li><a href="student?action=grade"><i class="fas fa-trophy"></i>Xem Điểm</a></li>                
+                <li><a href="grade.jsp"><i class="fas fa-trophy"></i>Xem Điểm</a></li>                
             </ul>
 
 

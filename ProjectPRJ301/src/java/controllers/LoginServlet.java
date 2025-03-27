@@ -4,6 +4,7 @@ import dal.AccountDAO;
 import dal.StudentDAO;
 import dal.TeacherDAO;
 import dto.ClassJoin;
+import dto.InfoGrade;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -41,8 +42,8 @@ public class LoginServlet extends HttpServlet {
                     resp.sendRedirect("ViewTeacher.jsp");
                 } else {
                     resp.sendRedirect("Login.jsp");
-                    return ;
-                }               
+                    return;
+                }
             } else if (acc.getRoleId() == 3) {
                 // Xử lý lưu thông tin sinh viên
                 StudentDAO stuDAO = new StudentDAO();
@@ -62,6 +63,21 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("class", new ArrayList<>()); // Gán danh sách rỗng để tránh lỗi null
                 }
 
+                // Student xem diem
+                 List<InfoGrade> ig = stuDAO.getInfoGrade(acc.getAccId());
+
+                    if (ig != null) {
+                        session.setAttribute("infograde", ig);
+                    } else {
+                        session.setAttribute("infograde", new ArrayList<>()); // Tránh lỗi null
+                    }
+
+                    resp.sendRedirect("ViewStudent.jsp"); // Chuyển hướng sau khi lưu dữ liệu
+                } else {
+                    resp.sendRedirect("Login.jsp");
+
+                
+                
                 // Chỉ redirect sau khi đã lưu cả student và class
                 resp.sendRedirect("ViewStudent.jsp");
             }

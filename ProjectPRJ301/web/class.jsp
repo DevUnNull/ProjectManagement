@@ -17,8 +17,9 @@
     <body>
         <h2>Thông Tin Lớp Học</h2>
         <ul>
-            <% for (ClassJoin c : cla) { %>
-            <li><a href="allStudent.jsp&ClassName=<%= c.getClaName() %>"><%= c.getClaName() %></a></li>
+            <% for (ClassJoin c : cla) 
+            { %>
+            <li><a href="student?action=all&ClassName=<%= c.getClaName() %>"> <%= c.getClaName() %></a></li>
                 <% } %>
         </ul>
 
