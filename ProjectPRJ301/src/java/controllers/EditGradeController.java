@@ -44,7 +44,8 @@ public class EditGradeController extends HttpServlet {
         boolean isUpdated = gradeDAO.updateGrade(studentId, subjectId, semesterId, midTerm, finalExam);
 
         if (isUpdated) {
-            response.sendRedirect("AdminGradeController"); // Quay lại danh sách nếu cập nhật thành công
+            request.getSession().setAttribute("successMessage", "Cập nhật điểm thành công!");
+            response.sendRedirect("AdminGradeController");
         } else {
             request.setAttribute("error", "Cập nhật điểm thất bại. Vui lòng thử lại!");
             doGet(request, response); // Quay lại trang chỉnh sửa nếu thất bại
