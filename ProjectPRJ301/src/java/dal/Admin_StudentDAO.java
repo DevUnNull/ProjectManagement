@@ -10,18 +10,14 @@ import models.Student;
 
 public class Admin_StudentDAO {
 
-    Connection con = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-
     public List<Student> getAllStudents() {
         List<Student> list = new ArrayList<>();
         String query = "SELECT * FROM Student";
-
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
+        
+        try (Connection con = new DBContext().getConnection();
+             PreparedStatement ps = con.prepareStatement(query);
+             ResultSet rs = ps.executeQuery()) {
+            
             while (rs.next()) {
                 list.add(new Student(
                         rs.getString("Student_ID"),
@@ -43,88 +39,93 @@ public class Admin_StudentDAO {
 
     public Student getStudentByID(String studentID) {
         String query = "SELECT * FROM Student WHERE Student_ID = ?";
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
+        
+        try (Connection con = new DBContext().getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
             ps.setString(1, studentID);
-            rs = ps.executeQuery();
-            if (rs.next()) {
-                return new Student(
-                        rs.getString("Student_ID"),
-                        rs.getString("Full_Name"),
-                        rs.getInt("BirthYear"),
-                        rs.getString("Gender"),
-                        rs.getString("Phone"),
-                        rs.getString("Email"),
-                        rs.getString("Address"),
-                        rs.getInt("Class_ID"),
-                        rs.getInt("Account_ID")
-                );
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return new Student(
+                            rs.getString("Student_ID"),
+                            rs.getString("Full_Name"),
+                            rs.getInt("BirthYear"),
+                            rs.getString("Gender"),
+                            rs.getString("Phone"),
+                            rs.getString("Email"),
+                            rs.getString("Address"),
+                            rs.getInt("Class_ID"),
+                            rs.getInt("Account_ID")
+                    );
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null; // Trả về null nếu không tìm thấy
+        return null;
     }
 
-    public void updateStudent(String id, String name, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
-        String query = "UPDATE Student SET Full_Name=?, BirthYear=?, Gender=?, Phone=?, Email=?, Address=?, Class_ID=?, Account_ID=? WHERE Student_ID=?";
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, name);
-            ps.setInt(2, birthyear);
-            ps.setString(3, gender);
-            ps.setString(4, phone);
-            ps.setString(5, email);
-            ps.setString(6, address);
-            ps.setInt(7, claId);
-            ps.setInt(8, accId);
-            ps.setString(9, id);
-            ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+    public boolean updateStudent(String id, String name, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
+    String sql = "UPDATE Student SET Full_Name=?, BirthYear=?, Gender=?, Phone=?, Email=?, Address=?, Class_ID=?, Account_ID=? WHERE Student_ID=?";
+    try (Connection conn = new DBContext().getConnection();  // ✅ Gọi DBContext đúng cách
+         PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-    public void deleteStudent(String studentID) {
+        stmt.setString(1, name);
+        stmt.setInt(2, birthyear);
+        stmt.setString(3, gender);
+        stmt.setString(4, phone);
+        stmt.setString(5, email);
+        stmt.setString(6, address);
+        stmt.setInt(7, claId);
+        stmt.setInt(8, accId);
+        stmt.setString(9, id);
+
+        int rowsUpdated = stmt.executeUpdate();
+        return rowsUpdated > 0; // Trả về true nếu có bản ghi được cập nhật
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        return false;
+    }
+}
+
+
+
+
+    public boolean deleteStudent(String studentID) {
         String query = "DELETE FROM Student WHERE Student_ID = ?";
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
+        
+        try (Connection con = new DBContext().getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
             ps.setString(1, studentID);
-            ps.executeUpdate();
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return false;
     }
     
-     public void addStudent(String id, String name, int birthyear, String gender, String phone, String email, String address, int claId, int accId) {
+    public boolean addStudent(Student student) {
         String query = "INSERT INTO Student (Student_ID, Full_Name, BirthYear, Gender, Phone, Email, Address, Class_ID, Account_ID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            con = new DBContext().getConnection();
-            ps = con.prepareStatement(query);
-            ps.setString(1, id);
-            ps.setString(2, name);
-            ps.setInt(3, birthyear);
-            ps.setString(4, gender);
-            ps.setString(5, phone);
-            ps.setString(6, email);
-            ps.setString(7, address);
-            ps.setInt(8, claId);
-            ps.setInt(9, accId);
-            ps.executeUpdate();
+        
+        try (Connection con = new DBContext().getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+            
+            ps.setString(1, student.getStuId());
+            ps.setString(2, student.getStuName());
+            ps.setInt(3, student.getBirthyear());
+            ps.setString(4, student.getGender());
+            ps.setString(5, student.getPhone());
+            ps.setString(6, student.getEmail());
+            ps.setString(7, student.getAddress());
+            ps.setInt(8, student.getClaId());
+            ps.setInt(9, student.getAccId());
+            
+            return ps.executeUpdate() > 0;
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    
-
-    public static void main(String[] args) {
-        Admin_StudentDAO dao = new Admin_StudentDAO();
-        List<Student> list = dao.getAllStudents();
-        for (Student student : list) {
-            System.out.println(student);
-        }
+        return false;
     }
 }

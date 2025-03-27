@@ -131,7 +131,7 @@ a.delete:hover {
             <th>Điện Thoại</th>
             <th>Email</th>
             <th>Địa Chỉ</th>
-            <th>Lớp</th>
+            <th>ID Lớp</th>
             <th>Tài Khoản</th>
             <th>Hành động</th>
         </tr>
