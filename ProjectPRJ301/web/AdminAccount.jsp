@@ -113,8 +113,29 @@
                 <td>${account.roleId}</td>
                 <td>
                     <a href="editAccount.jsp?id=${account.accId}" class="btn edit">Sửa</a>
-                    <a href="deleteAccount?id=${account.accId}" class="btn delete">Xóa</a>
+                    <a href="javascript:void(0);" class="btn delete"
+                       onclick="confirmDelete(${account.accId})">Xóa</a>
+
                 </td>
+
+
+
+                    <%-- Hiển thị thông báo nếu có --%>
+                    <c:if test="${not empty message}">
+                    <p style="color: green;">${message}</p>
+                </c:if>
+                <c:if test="${not empty error}">
+                    <p style="color: red;">${error}</p>
+                </c:if>
+
+                <script>
+                    function confirmDelete(accountId) {
+                        if (confirm("Bạn có chắc chắn muốn xóa tài khoản này không?")) {
+                            window.location.href = "Admin_AccountController?action=delete&id=" + accountId;
+                        }
+                    }
+                </script>
+
             </tr>
         </c:forEach>
     </table>

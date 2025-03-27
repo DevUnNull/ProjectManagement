@@ -70,14 +70,16 @@ public class Admin_AccountDAO {
         return false; // Trả về false nếu có lỗi xảy ra
     }
 
-    public void deleteAccount(int accountID) {
-        String query = "DELETE FROM Account WHERE Account_ID = ?";
+    public boolean deleteAccount(int accountID) {
+        String query = "DELETE FROM Account WHERE = ?";
         try (Connection con = new DBContext().getConnection(); PreparedStatement ps = con.prepareStatement(query)) {
 
             ps.setInt(1, accountID);
-            ps.executeUpdate();
+            int rowsAffected = ps.executeUpdate();
+            return rowsAffected > 0; // Trả về true nếu xóa thành công
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
