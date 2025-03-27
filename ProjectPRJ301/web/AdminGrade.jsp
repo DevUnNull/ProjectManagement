@@ -88,6 +88,12 @@
         .edit-btn:hover {
             background-color: #0056b3;
         }
+        /* Thông báo lỗi */
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -99,16 +105,19 @@
         <input type="text" name="searchStudentId" placeholder="Nhập StudentID" value="${param.searchStudentId}">
         <select name="searchSemester">
             <option value="">--Chọn Học kỳ--</option>
-            <!-- Giả sử semesterList là danh sách đối tượng với thuộc tính semesterName.
-                 Nếu bạn chỉ có list String thì: -->
             <c:forEach var="semester" items="${semesterList}">
-                <option value="${semester}" <c:if test="${param.searchSemester == semester}">selected</c:if>>
-                    ${semester}
+                <option value="${semester.semesterName}" <c:if test="${param.searchSemester == semester.semesterName}">selected</c:if>>
+                    ${semester.semesterName}
                 </option>
             </c:forEach>
         </select>
         <button type="submit">Tìm kiếm</button>
     </form>
+    
+    <!-- Hiển thị thông báo lỗi nếu có -->
+    <c:if test="${not empty errorMessage}">
+        <div class="error-message">${errorMessage}</div>
+    </c:if>
     
     <!-- Bảng điểm -->
     <table>

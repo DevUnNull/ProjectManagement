@@ -1,14 +1,16 @@
 package controllers;
 
 import dal.AdminGradeDAO;
+import dal.SemesterDAO;
 import dto.GradeDTO;
+import dto.SemesterDTO;
 import java.io.IOException;
+import java.util.List;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
 
 @WebServlet(name = "AdminGradeController", urlPatterns = {"/AdminGradeController"})
 public class AdminGradeController extends HttpServlet {
@@ -30,11 +32,16 @@ public class AdminGradeController extends HttpServlet {
             gradeList = gradeDAO.getAllGrades();
         }
         
+        // Nếu người dùng đã nhập mã sinh viên mà không có kết quả
+        if (gradeList.isEmpty() && searchStudentId != null && !searchStudentId.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "Mã sinh viên không tồn tại, hoặc không có điểm kì này!");
+        }
+        
         request.setAttribute("gradeList", gradeList);
         
-        // Nếu chưa có SemesterDAO, sử dụng list tĩnh cho dropdown Học kỳ
-        java.util.List<String> semesterList = java.util.Arrays.asList(
-                "SPRING2024", "SUMMER2024", "FALL2024", "SPRING2025", "SUMMER2025", "FALL2025");
+        // Sử dụng SemesterDAO để lấy danh sách kỳ học từ DB
+        SemesterDAO semDAO = new SemesterDAO();
+        List<SemesterDTO> semesterList = semDAO.getAllSemesters();
         request.setAttribute("semesterList", semesterList);
 
         request.getRequestDispatcher("AdminGrade.jsp").forward(request, response);
