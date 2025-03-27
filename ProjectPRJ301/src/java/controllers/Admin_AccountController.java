@@ -109,7 +109,15 @@ public class Admin_AccountController extends HttpServlet {
                 int accountId = Integer.parseInt(request.getParameter("id"));
                 System.out.println("ID cần xóa: " + accountId); // Debug kiểm tra ID
 
+                // 🟢 Lấy thông tin tài khoản trước khi xóa
+                Account accountToDelete = accountDAO.getAccountByID(accountId);
+                String username = (accountToDelete != null) ? accountToDelete.getUsername() : "Không xác định";
+
+                // 🗑 Xóa tài khoản
                 accountDAO.deleteAccount(accountId);
+
+                // ✅ Lưu thông báo vào session
+                request.getSession().setAttribute("successMessage", "✅ Tài khoản '" + username + "' đã xóa thành công!");
 
                 response.sendRedirect("Admin_AccountController");
                 return; // ⬅ DỪNG XỬ LÝ Ở ĐÂY

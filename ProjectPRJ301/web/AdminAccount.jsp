@@ -128,6 +128,13 @@
         <p style="color: red;">${error}</p>
     </c:if>
 
+    <!-- Hiển thị thông báo thành công sau khi xóa -->
+    <c:if test="${not empty sessionScope.successMessage}">
+        <p style="color: green; font-weight: bold;">${sessionScope.successMessage}</p>
+        <% session.removeAttribute("successMessage"); %> <!-- Xóa thông báo sau khi hiển thị -->
+    </c:if>
+
+
     <!-- Bảng danh sách tài khoản -->
     <table border="1">
         <tr>
@@ -145,7 +152,7 @@
                 <td>${account.roleId}</td>
                 <td>
                     <a href="editAccount.jsp?id=${account.accId}" class="btn edit">Sửa</a>
-                    
+
                     <!-- Form xóa tài khoản sử dụng POST -->
                     <form action="Admin_AccountController" method="POST" style="display:inline;">
                         <input type="hidden" name="id" value="${account.accId}">
