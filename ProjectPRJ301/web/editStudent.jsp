@@ -1,6 +1,11 @@
-<%@page import="models.Student"%>
-<%@page import="dao.Admin_StudentDAO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<c:import url="SidebarAdmin.jsp"/>
+ <%@page import="models.Student"%>
+<%@page import="dao.Admin_StudentDAO"%>
+
+<div class="content">
+   
 
 <%
     // Lấy studentId từ request
@@ -75,3 +80,8 @@
         </tr>
     </table>
 </form>
+
+</div>
+
+</body>
+</html>

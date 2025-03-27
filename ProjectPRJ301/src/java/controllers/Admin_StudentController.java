@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
- */
 package controllers;
 
 import dao.Admin_StudentDAO;
@@ -20,23 +16,22 @@ public class Admin_StudentController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        // B1: Lấy dữ liệu từ DAO
         Admin_StudentDAO dao = new Admin_StudentDAO();
-        List<Student> list = dao.getAllStudents(); // Lấy toàn bộ danh sách sinh viên
+        List<Student> list = dao.getAllStudents(); // Lấy danh sách sinh viên
 
-        // B2: Kiểm tra nếu có tìm kiếm theo Student_ID
+        // Xử lý tìm kiếm
         String searchID = request.getParameter("searchID");
         if (searchID != null && !searchID.trim().isEmpty()) {
             Student student = dao.getStudentByID(searchID);
             if (student != null) {
-                list = new ArrayList<>(); // Xóa danh sách cũ, chỉ hiển thị sinh viên tìm được
+                list = new ArrayList<>();
                 list.add(student);
             } else {
                 request.setAttribute("searchMessage", "Không tìm thấy sinh viên có mã: " + searchID);
             }
         }
 
-        // B3: Đưa dữ liệu lên JSP
+        // Gửi danh sách sinh viên lên JSP
         request.setAttribute("listP", list);
         request.getRequestDispatcher("AdminStudent.jsp").forward(request, response);
     }
@@ -44,13 +39,41 @@ public class Admin_StudentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String action = request.getParameter("action");
+
+        if ("delete".equals(action)) {
+            deleteStudent(request, response);
+        } else {
+            processRequest(request, response);
+        }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
+    }
+
+    private void deleteStudent(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String studentID = request.getParameter("id");
+
+        if (studentID == null || studentID.trim().isEmpty()) {
+            request.setAttribute("errorMessage", "ID không hợp lệ!");
+            request.getRequestDispatcher("AdminStudent.jsp").forward(request, response);
+            return;
+        }
+
+        Admin_StudentDAO studentDAO = new Admin_StudentDAO();
+        boolean success = studentDAO.deleteStudent(studentID);
+
+        if (success) {
+            request.setAttribute("message", "Xóa sinh viên thành công!");
+        } else {
+            request.setAttribute("errorMessage", "Lỗi! Không thể xóa sinh viên.");
+        }
+
+        response.sendRedirect("Admin_StudentController");
     }
 
     @Override

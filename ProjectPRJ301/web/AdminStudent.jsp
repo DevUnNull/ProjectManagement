@@ -3,6 +3,16 @@
 <c:import url="SidebarAdmin.jsp"/>
 <%@page import="java.util.List"%>
 <%@page import="models.Student"%>
+<a href="javascript:void(0);" class="btn delete" onclick="confirmDelete('${student.stuId}')">Xóa</a>
+
+<script>
+    function confirmDelete(studentId) {
+        if (confirm("Bạn có chắc chắn muốn xóa sinh viên này không?")) {
+            window.location.href = "Admin_StudentController?action=delete&id=" + studentId;
+        }
+    }
+</script>
+
 <div class="content">
 
 
