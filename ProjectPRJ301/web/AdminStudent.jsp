@@ -9,81 +9,105 @@
 
     <title>Quản lý Sinh viên</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+       body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
 
-        .content {
-            width: 90%;
-            max-width: 1200px;
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
+.content {
+    margin-left: 250px; /* Để phù hợp với sidebar */
+    padding: 20px;
+}
 
-        h2 {
-            color: #333;
-            margin-bottom: 20px;
-        }
+h1 {
+    color: #333;
+}
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            background: #fff;
-        }
+form {
+    margin-bottom: 15px;
+}
 
-        th, td {
-            border: 1px solid #ddd;
-            padding: 12px;
-            text-align: center;
-        }
+input[type="text"] {
+    padding: 8px;
+    width: 200px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
 
-        th {
-            background: #007bff;
-            color: white;
-            font-weight: bold;
-        }
+button {
+    padding: 8px 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
 
-        tr:nth-child(even) {
-            background: #f9f9f9;
-        }
+button:hover {
+    background-color: #0056b3;
+}
 
-        tr:hover {
-            background: #e9ecef;
-        }
+input[type="submit"] {
+    padding: 8px 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-        .btn {
-            display: inline-block;
-            padding: 8px 12px;
-            text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: 0.3s;
-            margin: 5px;
-        }
+input[type="submit"]:hover {
+    background-color: #218838;
+}
 
-        .edit {
-            background-color: #ffc107;
-            color: black;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        .delete {
-            background-color: #dc3545;
-            color: white;
-        }
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
 
-        .btn:hover {
-            filter: brightness(90%);
-        }
+table th {
+    background-color: #007bff;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+a.btn {
+    padding: 5px 10px;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+a.edit {
+    background-color: #ffc107;
+    color: black;
+}
+
+a.delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+a.edit:hover {
+    background-color: #e0a800;
+}
+
+a.delete:hover {
+    background-color: #c82333;
+}
 
     </style>
 
