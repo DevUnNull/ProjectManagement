@@ -5,7 +5,70 @@
 <%@page import="dao.Admin_StudentDAO"%>
 
 <div class="content">
-   
+    <style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+h3 {
+    text-align: center;
+    color: red;
+}
+
+form {
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+td {
+    padding: 10px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+    </style>
+    
 
 <%
     // Lấy studentId từ request
@@ -66,7 +129,7 @@
             <td><input type="text" name="address" value="<%= s.getAddress() %>" required></td>
         </tr>
         <tr>
-            <td>Lớp:</td>
+            <td>ID Lớp:</td>
             <td><input type="number" name="claId" value="<%= s.getClaId() %>" min="1" required></td>
         </tr>
         <tr>
