@@ -126,16 +126,16 @@ a.delete:hover {
 
     <table>
         <tr>
-            <th>Mã Sinh viên</th>
-            <th>Họ và Tên</th>
-            <th>Năm Sinh</th>
-            <th>Giới Tính</th>
-            <th>Điện Thoại</th>
+            <th>Student ID</th>
+            <th>Full Name</th>
+            <th>Birth Year</th>
+            <th>Gender</th>
+            <th>Phone</th>
             <th>Email</th>
-            <th>Địa Chỉ</th>
-            <th>ID Lớp</th>
-            <th>Tài Khoản</th>
-            <th>Hành động</th>
+            <th>Address</th>
+            <th>Class ID</th>
+            <th>Account ID</th>
+            <th>Actions</th>
         </tr>
         <c:forEach var="student" items="${listP}">
             <tr>

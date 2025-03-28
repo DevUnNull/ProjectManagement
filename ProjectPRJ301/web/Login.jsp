@@ -42,6 +42,13 @@
 
             <button type="submit" class="btn">Đăng Nhập</button>
 
+            <% 
+    String errorMsg = (String) request.getAttribute("Msg");
+    if (errorMsg != null) {
+            %>
+            <p style="color: red; font-weight: bold; margin-top: 10px; text-align: center;"><%= errorMsg %></p>
+            <% } %>
+
             <!--            <div class="register-link">
                             <p>Don't have an account? <a href="http://localhost:9999/PROJECT/register">Register</a></p>
                         </div>-->

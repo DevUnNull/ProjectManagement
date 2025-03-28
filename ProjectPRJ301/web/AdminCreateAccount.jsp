@@ -125,7 +125,7 @@
         <form action="Admin_AccountController" method="POST">
             <input type="hidden" name="action" value="create">
 
-            <label>Username:</label>
+            <label>Full Name:</label>
             <input type="text" name="username" required><br>
 
             <label>Email:</label>
