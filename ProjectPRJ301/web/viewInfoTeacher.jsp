@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page  import="models.Account" %>
+<%
+    Account account = (Account) session.getAttribute("account");
+    if (account == null || account.getRoleId() != 2) {
+        response.sendRedirect("Login.jsp"); // Chuyển về trang đăng nhập nếu không phải giáo viên
+        return;
+    }
+%>
 <html>
     <head>
         <meta charset="UTF-8">

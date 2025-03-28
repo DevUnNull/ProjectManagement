@@ -2,6 +2,14 @@
 <%@page import="java.util.List, models.Student"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:import url="SidebarTeacher.jsp"/>
+<%@page  import="models.Account" %>
+<%
+    Account account = (Account) session.getAttribute("account");
+    if (account == null || account.getRoleId() != 2) {
+        response.sendRedirect("Login.jsp"); // Chuyển về trang đăng nhập nếu không phải giáo viên
+        return;
+    }
+%>
 
 
 <!DOCTYPE html>

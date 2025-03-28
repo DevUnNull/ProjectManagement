@@ -3,6 +3,14 @@
 <c:import url="SidebarStudent.jsp"/>
 <%@page import="java.util.List" %>
 <%@page import="dto.ClassJoin" %>
+<%@page  import="models.Account" %>
+<%
+    Account account = (Account) session.getAttribute("account");
+    if (account == null || account.getRoleId() != 3) {
+        response.sendRedirect("Login.jsp"); // Chuyển về trang đăng nhập nếu không phải giáo viên
+        return;
+    }
+%>
 
 <div class="content">
 

@@ -2,6 +2,14 @@
 <%@page import="models.Student" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
+<%@page  import="models.Account" %>
+<%
+    Account account = (Account) session.getAttribute("account");
+    if (account == null || account.getRoleId() != 3) {
+        response.sendRedirect("Login.jsp"); // Chuyển về trang đăng nhập nếu không phải giáo viên
+        return;
+    }
+%>
 <html>
     <head>
         <meta charset="UTF-8">
