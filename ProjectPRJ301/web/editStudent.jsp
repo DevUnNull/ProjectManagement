@@ -4,13 +4,7 @@
  <%@page import="models.Student"%>
 <%@page import="dao.Admin_StudentDAO"%>
 <%@page  import="models.Account" %>
-<%
-    Account account = (Account) session.getAttribute("account");
-    if (account == null || account.getRoleId() != 1) {
-        response.sendRedirect("Login.jsp"); // Chuyển về trang đăng nhập nếu không phải giáo viên
-        return;
-    }
-%>
+
 
 <div class="content">
     <style>
