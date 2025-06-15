@@ -40,6 +40,10 @@
         <servlet-name>AdminGradeController</servlet-name>
         <servlet-class>controllers.AdminGradeController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>NewServlet</servlet-name>
+        <servlet-class>controllers.NewServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AdminController</servlet-name>
         <url-pattern>/adminController</url-pattern>
@@ -79,5 +83,9 @@
     <servlet-mapping>
         <servlet-name>AdminGradeController</servlet-name>
         <url-pattern>/AdminGradeController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewServlet</servlet-name>
+        <url-pattern>/NewServlet</url-pattern>
     </servlet-mapping>
 </web-app>
